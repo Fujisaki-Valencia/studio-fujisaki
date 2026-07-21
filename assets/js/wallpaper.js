@@ -18,16 +18,37 @@
         return;
       }
 
+      const byArtist = w.artist ? ` by ${w.artist}` : "";
+
       // Vertical thumb is used as OG image so Pinterest previews stay tall.
       SF.setMeta({
         title: w.title,
-        description: `${w.title} by ${w.artist} — free Japandi wallpaper from ${w.museum}. Download for PC (4K) and phone.`,
+        description: `${w.title}${byArtist} — free Japandi wallpaper. Download for PC (4K), phone and ultrawide.`,
         type: "article",
         image: C.SITE_URL + "/" + w.thumb,
         imageWidth: 600,
         imageHeight: 900,
         path: "wallpaper.html?slug=" + w.slug,
       });
+
+      // Only show the metadata rows that this wallpaper actually has.
+      const metaRows = [
+        ["Artist", w.artist],
+        ["Era", w.era],
+        ["Source", w.museum],
+      ]
+        .filter(([, v]) => v)
+        .map(([k, v]) => `<dt>${k}</dt><dd>${SF.escape(v)}</dd>`)
+        .join("");
+
+      // Neutral credit line, built only from the fields that are present.
+      const creditParts = [
+        w.artist ? SF.escape(w.artist) : "",
+        w.era ? `(${SF.escape(w.era)})` : "",
+      ].filter(Boolean).join(" ");
+      const creditLead = creditParts
+        ? `“${SF.escape(w.title)}” — ${creditParts}${w.museum ? `, ${SF.escape(w.museum)}` : ""}. `
+        : "";
 
       host.innerHTML = `
         <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -37,16 +58,12 @@
         </nav>
         <div class="detail">
           <div class="preview">
-            <img src="${SF.escape(w.thumb)}" alt="${SF.escape(w.title)} by ${SF.escape(w.artist)}" width="600" height="375">
+            <img src="${SF.escape(w.thumb)}" alt="${SF.escape(w.title)}${byArtist ? " " + SF.escape(byArtist.trim()) : ""}" width="600" height="375">
           </div>
           <div class="detail-info">
             <p class="section-head kicker" style="margin-bottom:.6rem">Wallpaper</p>
             <h1>${SF.escape(w.title)}</h1>
-            <dl>
-              <dt>Artist</dt><dd>${SF.escape(w.artist)}</dd>
-              <dt>Era</dt><dd>${SF.escape(w.era)}</dd>
-              <dt>Museum</dt><dd>${SF.escape(w.museum)}</dd>
-            </dl>
+            ${metaRows ? `<dl>${metaRows}</dl>` : ""}
 
             <div class="download-block">
               <a class="btn btn--solid" href="${SF.escape(w.pcUrl)}" download
@@ -60,12 +77,9 @@
             </div>
 
             <div class="credit">
-              <strong>Credit &amp; source.</strong>
-              “${SF.escape(w.title)}” by ${SF.escape(w.artist)} (${SF.escape(w.era)}),
-              collection of ${SF.escape(w.museum)}.
-              The original artwork is in the public domain. Credit is kept here on the
-              page and is never burned into the wallpaper image.
-              See our <a href="license.html">License / Credits</a> for details.
+              <strong>Credit.</strong>
+              ${creditLead}Credit is kept here on the page and is never burned into the
+              wallpaper image. See our <a href="license.html">License / Credits</a> for details.
             </div>
           </div>
         </div>`;

@@ -139,7 +139,7 @@
           </div>
         </div>
         <div class="container footer-bottom">
-          © ${year} ${SF.escape(C.BRAND_NAME)}. Source artworks are in the public domain.
+          © ${year} ${SF.escape(C.BRAND_NAME)}. Japandi wallpapers, free for personal use.
         </div>
       </footer>`;
   }
