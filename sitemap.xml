@@ -4,10 +4,8 @@
   <url><loc>https://REPLACE-ME.example.com/about.html</loc><priority>0.5</priority></url>
   <url><loc>https://REPLACE-ME.example.com/license.html</loc><priority>0.4</priority></url>
   <url><loc>https://REPLACE-ME.example.com/privacy.html</loc><priority>0.3</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=great-wave-kanagawa</loc><priority>0.6</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=fine-wind-clear-morning</loc><priority>0.6</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=irises-screen</loc><priority>0.6</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=pine-trees-screen</loc><priority>0.6</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=red-and-white-plum-blossoms</loc><priority>0.6</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=maple-viewing-takao</loc><priority>0.6</priority></url>
+  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=01_hokusai-kumonokakehashi</loc><priority>0.6</priority></url>
+  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=02_keisen-fishandplants</loc><priority>0.6</priority></url>
+  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=03_kiitsu-flowersofallseasons</loc><priority>0.6</priority></url>
+  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=04_hokusai-gaifukaisei</loc><priority>0.6</priority></url>
 </urlset>
