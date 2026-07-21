@@ -89,6 +89,59 @@
         "ipad": "mockups/01_hokusai-kumonokakehashi/ipad.webp",
         "iphone": "mockups/01_hokusai-kumonokakehashi/iphone.webp"
       }
+    },
+    {
+      "slug": "02_keisen-fishandplants",
+      "title": "Fish and Plants",
+      "date": "2026-07-22",
+      "artist": "Ikeda Keisen",
+      "era": "Meiji era, 1908",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/02_keisen-fishandplants.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/02_keisen-fishandplants/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/02_keisen-fishandplants/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/02_keisen-fishandplants/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/02_keisen-fishandplants/ultrawide.webp",
+        "macbook": "mockups/02_keisen-fishandplants/macbook.webp",
+        "ipad": "mockups/02_keisen-fishandplants/ipad.webp",
+        "iphone": "mockups/02_keisen-fishandplants/iphone.webp"
+      }
+    },
+    {
+      "slug": "03_kiitsu-flowersofallseasons",
+      "title": "Flowers of All Seasons",
+      "date": "2026-07-22",
+      "era": "Edo period, mid-17th century",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/03_kiitsu-flowersofallseasons.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/03_kiitsu-flowersofallseasons/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/03_kiitsu-flowersofallseasons/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/03_kiitsu-flowersofallseasons/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/03_kiitsu-flowersofallseasons/ultrawide.webp",
+        "macbook": "mockups/03_kiitsu-flowersofallseasons/macbook.webp",
+        "ipad": "mockups/03_kiitsu-flowersofallseasons/ipad.webp",
+        "iphone": "mockups/03_kiitsu-flowersofallseasons/iphone.webp"
+      }
+    },
+    {
+      "slug": "04_hokusai-gaifukaisei",
+      "title": "A Mild Breeze on a Fine Day (Gaifū kaisei)",
+      "date": "2026-07-22",
+      "artist": "Katsushika Hokusai",
+      "era": "Edo period, c. 1830–33",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/04_hokusai-gaifukaisei.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/04_hokusai-gaifukaisei/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/04_hokusai-gaifukaisei/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/04_hokusai-gaifukaisei/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/04_hokusai-gaifukaisei/ultrawide.webp",
+        "macbook": "mockups/04_hokusai-gaifukaisei/macbook.webp",
+        "ipad": "mockups/04_hokusai-gaifukaisei/ipad.webp",
+        "iphone": "mockups/04_hokusai-gaifukaisei/iphone.webp"
+      }
     }
   ]
 }
