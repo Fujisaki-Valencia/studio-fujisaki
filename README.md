@@ -7,7 +7,11 @@
 - 作品データは単一ファイルに集約：[`data/wallpapers.json`](data/wallpapers.json)。
 - カードや各ページは、その JSON から JS で動的生成。
 - サムネイル（軽量 WebP）はリポジトリに含める。**フルサイズ画像は外部ストレージ（Cloudflare R2）に置き**、git には含めない。
-- 各壁紙は **標準3点セット** — PC (4K) / スマホ / ウルトラワイド — で提供。R2 上では `/{slug}/pc.jpg`・`/{slug}/sp.jpg`・`/{slug}/uw.jpg` に保存。
+- 各壁紙は **標準3点セット** — PC・タブレット / スマホ / ウルトラワイド — で提供。R2 上では `/{slug}/pc.jpg`・`/{slug}/sp.jpg`・`/{slug}/uw.jpg` に保存（PNG入力はJPEGへ自動変換）。
+- トップは**全壁紙を新着順**（`date` 降順）で表示し、スクロールで順次読み込み（無限スクロール）。
+- 一覧・作品ページに **デバイスモックのプレビュー切替**（Ultrawide / MacBook / iPad / iPhone）。作品ごとの `mockups/<slug>/<device>.webp` を使用（任意）。
+- OGP / Twitter Card 対応。作品ページは自身の **MacBook モック**、その他ページは既定OG画像（`config.js` の `DEFAULT_OG_IMAGE`）。
+- 作品追加を半自動化する `scripts/` と、Claude Code 用スラッシュコマンド `/upload-r2`・`/delete-originals` 付き。
 
 ---
 
@@ -21,7 +25,7 @@ studio-fujisaki/
 ├── privacy.html          AdSense 対応の雛形（Cookie / アクセス解析の記載欄）
 ├── license.html          License / Credits
 ├── 404.html
-├── config.js             ← 編集箇所：ブランド・各種URL・コレクション（1箇所で管理）
+├── config.js             ← 編集箇所：ブランド・各種URL・OGP既定画像（1箇所で管理）
 ├── assets/
 │   ├── css/style.css
 │   └── js/{site,home,wallpaper}.js
@@ -29,6 +33,8 @@ studio-fujisaki/
 ├── thumbs/               WebP サムネイル（600px・リポジトリに含める）
 ├── mockups/              デバイスモックのWebP（<slug>/<device>.webp・任意）
 ├── scripts/              gen-thumb · gen-mockups · add-wallpaper · upload-r2 (+ gen-sitemap)
+├── .claude/commands/     Claude Code 用スラッシュコマンド（/upload-r2, /delete-originals）
+├── originals/            作業用フルサイズ画像（git 除外・アップロード後は削除可）
 ├── sitemap.xml  robots.txt
 ├── .env.example          .env にコピーして使う（git 除外）R2 認証情報用
 └── .gitignore
@@ -62,18 +68,21 @@ npm install
 
 ## `config.js` — 置き換える箇所
 
-サイト全体の設定は [`config.js`](config.js) の1箇所に集約されています。プレースホルダを差し替えてください：
+サイト全体の設定は [`config.js`](config.js) の1箇所に集約されています：
 
-| 定数            | 差し替える内容                                                       |
-|-----------------|---------------------------------------------------------------------|
-| `BRAND_NAME`    | ブランド名（初期値 `Studio Fujisaki`）                              |
-| `TAGLINE`       | キャッチコピー                                                     |
-| `R2_BASE_URL`   | R2 バケットの公開ベースURL（`.env` の `R2_PUBLIC_BASE_URL` と一致させる） |
-| `KOFI_URL`      | あなたの Ko-fi ページ                                              |
-| `SITE_URL`      | 公開サイトのURL（OGP / sitemap の絶対URL生成に使用）               |
+| 定数                    | 内容                                                                | 現状 |
+|-------------------------|---------------------------------------------------------------------|------|
+| `BRAND_NAME`            | ブランド名                                                          | `Studio Fujisaki` |
+| `TAGLINE`               | キャッチコピー                                                      | 設定済み |
+| `R2_BASE_URL`           | R2 バケットの公開ベースURL（`.env` の `R2_PUBLIC_BASE_URL` と一致） | 設定済み（r2.dev） |
+| `SITE_URL`              | 公開サイトのURL（OGP / sitemap の絶対URL生成に使用）                | `https://fujisaki-valencia.github.io/studio-fujisaki` |
+| `DEFAULT_OG_IMAGE`      | 作品ページ以外の既定OGP画像（相対パス）＋その `_WIDTH`/`_HEIGHT`    | 01 の MacBook モック |
+| `KOFI_URL`              | Ko-fi ページ                                                        | **要差し替え**（`REPLACE-ME`） |
 
-あわせて **`sitemap.xml`** と **`robots.txt`** 内の `https://REPLACE-ME.example.com` も実URLに置き換えてください
-（または `npm run gen-sitemap -- --base https://your-domain.com` で sitemap を再生成）。
+- 現状 **`KOFI_URL` だけがプレースホルダ**です。投げ銭を有効にするときに実URLへ差し替えてください
+  （フッターと各作品ページのボタンが機能します）。
+- `SITE_URL` は GitHub Pages のURLに設定済みで、**`sitemap.xml` / `robots.txt` も同じホスト**に反映済みです。
+  独自ドメインへ移す場合のみ差し替えます（下記「独自ドメインへの移行」）。
 
 ---
 
@@ -106,6 +115,8 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 1. **public** の GitHub リポジトリを作成し、このフォルダを push する。
 2. リポジトリの **Settings → Pages** → Source: **Deploy from a branch** → Branch `main`、フォルダ `/ (root)` → Save。
 3. 緑のチェックが付くまで待つ。サイトは `https://<user>.github.io/<repo>/` で公開されます。
+
+**現在の公開URL:** https://fujisaki-valencia.github.io/studio-fujisaki/
 
 サイト内パスはすべて相対なので、プロジェクトのサブパスURLのままで問題なく動作します。
 
@@ -154,10 +165,14 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
       node gen-sitemap.js --base https://your-domain.com
 
 6. コミット & push:
-      git add data/wallpapers.json thumbs/<slug>.webp sitemap.xml
+      git add data/wallpapers.json thumbs/<slug>.webp mockups/<slug> sitemap.xml
       git commit -m "Add <slug>"
       git push
 ```
+
+> slug 命名について：`add-wallpaper`/`gen-thumb` は slug をハイフン区切りに正規化します
+> （アンダースコアはハイフンに変換）。既存作品は連番プレフィックス付き（例 `01_hokusai-…`）で、
+> R2 パスと一致させるため手動で登録しています。連番を使う場合は各ツールで slug を明示指定してください。
 
 ### スクリプト一覧
 
@@ -166,8 +181,8 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 | `gen-thumb`       | フル画像 → 幅600px の WebP サムネを `/thumbs` に出力（`sharp` を使用）。      |
 | `gen-mockups`     | `originals/<slug>/mockup-<device>.png` → `mockups/<slug>/<device>.webp` を出力し、`wallpapers.json` の `mockups` に登録。device = ultrawide / macbook / ipad / iphone。 |
 | `add-wallpaper`   | 検証済みブロックを `wallpapers.json` に1件追記（slug 自動生成／JSON構文・必須項目・thumb 存在・slug 重複を検証）。フラグまたは対話。 |
-| `upload-r2`       | `pc.jpg`/`sp.jpg`/`uw.jpg` を R2 にアップロード（S3互換・`@aws-sdk/client-s3`）し、`pcUrl`/`spUrl`/`uwUrl` を JSON に書き戻す。認証情報は `.env` からのみ。 |
-| `gen-sitemap`     | （おまけ）JSON から `sitemap.xml` を再生成。                                 |
+| `upload-r2`       | `pc`/`sp`/`uw`（`.png`/`.jpg`/`.webp` 可、非JPEGは**JPEGに変換**）を R2 にアップロード（S3互換・`@aws-sdk/client-s3`）し、`pcUrl`/`spUrl`/`uwUrl` を JSON に書き戻す。認証情報は `.env` からのみ。 |
+| `gen-sitemap`     | （おまけ）JSON から `sitemap.xml` を再生成（`--base` 省略時は現行の公開URL）。 |
 
 `wallpapers.json` のスキーマ（1作品あたり）：
 
@@ -200,6 +215,19 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 トップは **`date`（YYYY-MM-DD）の降順＝新着が上**で表示されます。`add-wallpaper` は追加時に
 今日の日付を自動で入れます（`--date 2026-07-22` で上書き可）。並び順を変えたいときは、その作品の
 `date` を編集するだけです。`date` が無い作品は一番下に回ります。
+
+---
+
+## Claude Code スラッシュコマンド
+
+`.claude/commands/` に、作業を半自動化するコマンドを同梱しています（Claude Code から `/名前` で実行）。
+
+| コマンド            | 役割                                                                      |
+|---------------------|---------------------------------------------------------------------------|
+| `/upload-r2 <slug>` | 前提（`.env`・画像の存在）を確認し `upload-r2` を実行、URL反映まで案内。未登録なら `add-wallpaper` を促す。 |
+| `/delete-originals [slug]` | `originals/` 配下（またはslug指定分）の作業用画像を削除して容量を戻す。対象は `originals/` 限定。 |
+
+> 新規コマンドは `/` メニューに出すのにセッション再読み込みが必要な場合があります。
 
 ---
 
