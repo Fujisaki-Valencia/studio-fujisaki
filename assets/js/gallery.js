@@ -1,24 +1,31 @@
-/* Home page: hero + recommended wallpapers (newest first) + VIEW MORE. */
+/* Gallery page: every wallpaper, newest first. */
 (function () {
   "use strict";
-  const HOME_COUNT = 9;
+  SF.setMeta({
+    title: "All wallpapers",
+    description: "Every free Japandi wallpaper from Studio Fujisaki, newest first.",
+    path: "gallery.html",
+  });
 
-  SF.setMeta({ path: "index.html" });
-
-  const grid = document.querySelector("[data-recommended]");
-  const more = document.querySelector("[data-viewmore]");
+  const grid = document.querySelector("[data-gallery-grid]");
+  const count = document.querySelector("[data-gallery-count]");
   if (!grid) return;
 
   SF.loadWallpapers()
     .then((items) => {
-      const newest = items.slice().reverse(); // newest first
-      if (!newest.length) {
+      const all = items.slice().reverse(); // newest first
+      if (count) {
+        count.textContent = all.length
+          ? `${all.length} wallpaper${all.length === 1 ? "" : "s"}`
+          : "";
+      }
+      if (!all.length) {
+        grid.className = "";
         grid.innerHTML = `<p class="empty-state">No wallpapers yet.</p>`;
-        if (more) more.hidden = true;
         return;
       }
-      grid.innerHTML = newest
-        .slice(0, HOME_COUNT)
+      grid.className = "card-grid";
+      grid.innerHTML = all
         .map(
           (w) => `
         <a class="card" href="wallpaper.html?slug=${encodeURIComponent(w.slug)}">
@@ -33,11 +40,8 @@
         </a>`
         )
         .join("");
-      // Only surface VIEW MORE when there is more to see.
-      if (more) more.hidden = newest.length <= HOME_COUNT;
     })
     .catch(() => {
       grid.innerHTML = `<p class="empty-state">Could not load wallpapers.</p>`;
-      if (more) more.hidden = true;
     });
 })();

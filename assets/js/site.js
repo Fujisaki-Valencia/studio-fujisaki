@@ -87,6 +87,7 @@
   /* ---------- header / footer ---------- */
   const NAV = [
     { href: "index.html", label: "Home", page: "home" },
+    { href: "gallery.html", label: "Wallpapers", page: "gallery" },
     { href: "about.html", label: "About", page: "about" },
     { href: "license.html", label: "License", page: "license" },
   ];
@@ -114,9 +115,6 @@
     const host = document.querySelector("[data-footer]");
     if (!host) return;
     const year = new Date().getFullYear();
-    const collLinks = (C.COLLECTIONS || [])
-      .map((c) => `<a href="collection.html?c=${c.slug}">${SF.escape(c.name)}</a>`)
-      .join("");
     host.innerHTML = `
       <footer class="site-footer">
         <div class="container">
@@ -129,8 +127,9 @@
             </p>
           </div>
           <div>
-            <h4>Collections</h4>
-            ${collLinks}
+            <h4>Browse</h4>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">All wallpapers</a>
           </div>
           <div>
             <h4>Site</h4>

@@ -29,12 +29,10 @@
         path: "wallpaper.html?slug=" + w.slug,
       });
 
-      const collName = SF.collectionName(w.collection);
-
       host.innerHTML = `
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="index.html">Home</a> ›
-          <a href="collection.html?c=${w.collection}">${SF.escape(collName)}</a> ›
+          <a href="gallery.html">All wallpapers</a> ›
           <span>${SF.escape(w.title)}</span>
         </nav>
         <div class="detail">
@@ -42,7 +40,7 @@
             <img src="${SF.escape(w.thumb)}" alt="${SF.escape(w.title)} by ${SF.escape(w.artist)}" width="600" height="375">
           </div>
           <div class="detail-info">
-            <p class="section-head kicker" style="margin-bottom:.6rem">${SF.escape(collName)}</p>
+            <p class="section-head kicker" style="margin-bottom:.6rem">Wallpaper</p>
             <h1>${SF.escape(w.title)}</h1>
             <dl>
               <dt>Artist</dt><dd>${SF.escape(w.artist)}</dd>

@@ -15,15 +15,11 @@ const base = (process.argv.includes("--base")
   : process.env.SITE_URL || "https://REPLACE-ME.example.com"
 ).replace(/\/+$/, "");
 
-const COLLECTIONS = ["ink-and-mist", "sage-and-stone", "warm-sand"];
 const data = JSON.parse(fs.readFileSync(path.join(REPO, "data", "wallpapers.json"), "utf8"));
 
 const urls = [
   `  <url><loc>${base}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>`,
-  ...COLLECTIONS.map(
-    (c) =>
-      `  <url><loc>${base}/collection.html?c=${c}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>`
-  ),
+  `  <url><loc>${base}/gallery.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
   `  <url><loc>${base}/about.html</loc><priority>0.5</priority></url>`,
   `  <url><loc>${base}/license.html</loc><priority>0.4</priority></url>`,
   `  <url><loc>${base}/privacy.html</loc><priority>0.3</priority></url>`,
