@@ -27,7 +27,8 @@ studio-fujisaki/
 │   └── js/{site,home,wallpaper}.js
 ├── data/wallpapers.json  ← 作品データの唯一の源
 ├── thumbs/               WebP サムネイル（600px・リポジトリに含める）
-├── scripts/              gen-thumb · add-wallpaper · upload-r2 (+ gen-sitemap)
+├── mockups/              デバイスモックのWebP（<slug>/<device>.webp・任意）
+├── scripts/              gen-thumb · gen-mockups · add-wallpaper · upload-r2 (+ gen-sitemap)
 ├── sitemap.xml  robots.txt
 ├── .env.example          .env にコピーして使う（git 除外）R2 認証情報用
 └── .gitignore
@@ -120,19 +121,26 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 
 ```
 1. フルサイズ画像を作業用フォルダ（git 除外）に、以下の名前で正確に置く
-   （標準3点セット）:
-      originals/<slug>/pc.jpg     (デスクトップ / 4K)
-      originals/<slug>/sp.jpg     (スマホ / 縦)
-      originals/<slug>/uw.jpg     (ウルトラワイド)
+   （標準3点セット。拡張子は png / jpg / webp いずれも可）:
+      originals/<slug>/pc.(png|jpg)   (デスクトップ / 4K)
+      originals/<slug>/sp.(png|jpg)   (スマホ / 縦)
+      originals/<slug>/uw.(png|jpg)   (ウルトラワイド)
 
 2. サムネイルを生成:
       cd scripts
-      node gen-thumb.js ../originals/<slug>/pc.jpg <slug>
+      node gen-thumb.js ../originals/<slug>/pc.png <slug>
    → thumbs/<slug>.webp を出力
+
+   （任意）デバイスモックを用意する場合は、originals/<slug>/ に
+   mockup-ultrawide / mockup-macbook / mockup-ipad / mockup-iphone.png を置き:
+      node gen-mockups.js --slug <slug>
+   → mockups/<slug>/<device>.webp を出力し、wallpapers.json に mockups を登録
+   （一覧・詳細のデバイス切替ボタンで表示。モックが無い作品はボタン非表示）
 
 3. フルサイズ画像を R2 にアップロード（認証情報は .env から読込）:
       node upload-r2.js --slug <slug> --dir ../originals/<slug>
-   → pc.jpg / sp.jpg / uw.jpg をアップロードし、pcUrl/spUrl/uwUrl を wallpapers.json に反映
+   → pc/sp/uw をアップロード（PNG等はJPEGに変換して .jpg で保存）し、
+     pcUrl/spUrl/uwUrl を wallpapers.json に反映
 
 4. メタデータのブロックを追記（slug 自動生成、JSON・必須項目・thumb 存在を検証）:
       node add-wallpaper.js --title "…" [--artist "…"] [--era "…"] [--museum "…"]
@@ -156,6 +164,7 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 | スクリプト        | 役割                                                                         |
 |-------------------|------------------------------------------------------------------------------|
 | `gen-thumb`       | フル画像 → 幅600px の WebP サムネを `/thumbs` に出力（`sharp` を使用）。      |
+| `gen-mockups`     | `originals/<slug>/mockup-<device>.png` → `mockups/<slug>/<device>.webp` を出力し、`wallpapers.json` の `mockups` に登録。device = ultrawide / macbook / ipad / iphone。 |
 | `add-wallpaper`   | 検証済みブロックを `wallpapers.json` に1件追記（slug 自動生成／JSON構文・必須項目・thumb 存在・slug 重複を検証）。フラグまたは対話。 |
 | `upload-r2`       | `pc.jpg`/`sp.jpg`/`uw.jpg` を R2 にアップロード（S3互換・`@aws-sdk/client-s3`）し、`pcUrl`/`spUrl`/`uwUrl` を JSON に書き戻す。認証情報は `.env` からのみ。 |
 | `gen-sitemap`     | （おまけ）JSON から `sitemap.xml` を再生成。                                 |
@@ -170,12 +179,20 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
   "thumb": "thumbs/<slug>.webp",
   "pcUrl": "https://<r2-base>/<slug>/pc.jpg",
   "spUrl": "https://<r2-base>/<slug>/sp.jpg",
-  "uwUrl": "https://<r2-base>/<slug>/uw.jpg"
+  "uwUrl": "https://<r2-base>/<slug>/uw.jpg",
+  "mockups": {
+    "ultrawide": "mockups/<slug>/ultrawide.webp",
+    "macbook":   "mockups/<slug>/macbook.webp",
+    "ipad":      "mockups/<slug>/ipad.webp",
+    "iphone":    "mockups/<slug>/iphone.webp"
+  }
 }
 ```
 
 （必須は `slug` / `title` と3点ダウンロードセット `pcUrl`/`spUrl`/`uwUrl`。
 `artist`/`era`/`museum` は任意で、無い作品は作品ページで該当行を表示しません。
+`mockups` も任意（`gen-mockups` が生成・登録）。一覧/詳細のデバイス切替に使われ、
+無ければ切替ボタンは出ません。
 タブレット版は持ちません。項目は自由に追加でき、レンダラは未知のキーを無視します。）
 
 ### 掲載順

@@ -134,6 +134,32 @@ h3 { font-size: 1.15rem; }
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
 }
 
+/* ------- device preview toolbar ------- */
+.device-bar {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+.device-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--line); background: var(--surface);
+  color: var(--text-muted); cursor: pointer; border-radius: var(--radius);
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  transition: border-color .2s ease, color .2s ease, background .2s ease;
+}
+.device-btn svg { display: block; }
+.device-btn:hover { color: var(--text); border-color: var(--accent); }
+.device-btn.is-active {
+  background: var(--accent-ink); color: var(--surface); border-color: var(--accent-ink);
+}
+@media (max-width: 520px) {
+  .device-btn span { position: absolute; left: -9999px; } /* icons only on small screens */
+}
+
+/* When a device mode is active, show the whole mockup (contain) in a 4:3 box. */
+.card-grid[data-mode] .thumb-wrap { aspect-ratio: 4 / 3; background: var(--bg-alt); }
+.card-grid[data-mode] .card img { object-fit: contain; }
+
 /* ------- wallpaper card grid ------- */
 .card-grid {
   display: grid; gap: var(--gap);
@@ -162,7 +188,11 @@ h3 { font-size: 1.15rem; }
 .detail { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
 @media (min-width: 860px) { .detail { grid-template-columns: 1.4fr 1fr; } }
 .detail .preview { background: var(--bg-alt); border: 1px solid var(--line); }
-.detail .preview img { width: 100%; height: auto; }
+.detail .preview img { width: 100%; height: auto; display: block; }
+/* Device mockup view: show the whole framed mockup in a 4:3 box. */
+.detail .preview.is-mockup { aspect-ratio: 4 / 3; display: grid; place-items: center; }
+.detail .preview.is-mockup img { width: 100%; height: 100%; object-fit: contain; }
+.detail .preview-col .device-bar { margin-bottom: 1rem; }
 .detail dl { margin: 1.5rem 0; display: grid; grid-template-columns: auto 1fr;
   gap: 0.4rem 1.2rem; font-size: 0.92rem; }
 .detail dt { color: var(--text-muted); letter-spacing: 0.06em;

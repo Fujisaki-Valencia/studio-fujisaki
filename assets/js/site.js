@@ -22,6 +22,60 @@
       .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   };
 
+  /* ---------- device preview (mockups) ---------- */
+  // Minimal line-style SVG icons, sized to the current font (1em).
+  const ICONS = {
+    artwork:
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-6 6"/></svg>',
+    ultrawide:
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6.5" width="20" height="9" rx="1.2"/><path d="M9 19h6M12 15.5V19"/></svg>',
+    macbook:
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="10" rx="1.2"/><path d="M2 18.5h20M9.5 15h5"/></svg>',
+    ipad:
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.6"/><path d="M11 18.5h2"/></svg>',
+    iphone:
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 19h3"/></svg>',
+  };
+  // Order and labels of the toggle. "artwork" is the default (plain thumbnail).
+  SF.DEVICES = [
+    { key: "artwork", label: "Artwork" },
+    { key: "ultrawide", label: "Ultrawide" },
+    { key: "macbook", label: "MacBook" },
+    { key: "ipad", label: "iPad" },
+    { key: "iphone", label: "iPhone" },
+  ];
+
+  // Build the toolbar markup. `only` optionally limits to devices that exist.
+  SF.deviceBar = function (only) {
+    const devices = SF.DEVICES.filter(
+      (d) => d.key === "artwork" || !only || only.includes(d.key)
+    );
+    const btns = devices
+      .map(
+        (d, i) =>
+          `<button type="button" class="device-btn${i === 0 ? " is-active" : ""}" ` +
+          `data-device="${d.key}" aria-pressed="${i === 0}" title="${d.label}" ` +
+          `aria-label="Preview: ${d.label}">${ICONS[d.key]}<span>${d.label}</span></button>`
+      )
+      .join("");
+    return `<div class="device-bar" role="group" aria-label="Preview device">${btns}</div>`;
+  };
+
+  // Wire a toolbar: calls onChange(deviceKey) when the active button changes.
+  SF.wireDeviceBar = function (bar, onChange) {
+    if (!bar) return;
+    bar.addEventListener("click", function (e) {
+      const btn = e.target.closest(".device-btn");
+      if (!btn || btn.classList.contains("is-active")) return;
+      bar.querySelectorAll(".device-btn").forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
+      onChange(btn.getAttribute("data-device"));
+    });
+  };
+
   /* Load and cache wallpaper data. Returns a Promise<Array>. */
   let _dataPromise = null;
   SF.loadWallpapers = function () {

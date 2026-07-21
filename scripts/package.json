@@ -11,6 +11,7 @@
   },
   "scripts": {
     "gen-thumb": "node gen-thumb.js",
+    "gen-mockups": "node gen-mockups.js",
     "add-wallpaper": "node add-wallpaper.js",
     "upload-r2": "node upload-r2.js",
     "gen-sitemap": "node gen-sitemap.js"

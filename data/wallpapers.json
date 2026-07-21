@@ -82,7 +82,13 @@
       "thumb": "thumbs/01_hokusai-kumonokakehashi.webp",
       "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/01_hokusai-kumonokakehashi/pc.jpg",
       "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/01_hokusai-kumonokakehashi/sp.jpg",
-      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/01_hokusai-kumonokakehashi/uw.jpg"
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/01_hokusai-kumonokakehashi/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/01_hokusai-kumonokakehashi/ultrawide.webp",
+        "macbook": "mockups/01_hokusai-kumonokakehashi/macbook.webp",
+        "ipad": "mockups/01_hokusai-kumonokakehashi/ipad.webp",
+        "iphone": "mockups/01_hokusai-kumonokakehashi/iphone.webp"
+      }
     }
   ]
 }

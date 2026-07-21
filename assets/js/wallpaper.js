@@ -50,14 +50,23 @@
         ? `“${SF.escape(w.title)}” — ${creditParts}${w.museum ? `, ${SF.escape(w.museum)}` : ""}. `
         : "";
 
+      // Which device mockups this wallpaper actually has (drives the toolbar).
+      const mk = w.mockups || {};
+      const mockupKeys = SF.DEVICES
+        .filter((d) => d.key !== "artwork" && mk[d.key])
+        .map((d) => d.key);
+
       host.innerHTML = `
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="index.html">Home</a> ›
           <span>${SF.escape(w.title)}</span>
         </nav>
         <div class="detail">
-          <div class="preview">
-            <img src="${SF.escape(w.thumb)}" alt="${SF.escape(w.title)}${byArtist ? " " + SF.escape(byArtist.trim()) : ""}" width="600" height="375">
+          <div class="preview-col">
+            ${mockupKeys.length ? SF.deviceBar(mockupKeys) : ""}
+            <div class="preview" data-preview>
+              <img src="${SF.escape(w.thumb)}" alt="${SF.escape(w.title)}${byArtist ? " " + SF.escape(byArtist.trim()) : ""}" width="600" height="375" data-thumb="${SF.escape(w.thumb)}">
+            </div>
           </div>
           <div class="detail-info">
             <p class="section-head kicker" style="margin-bottom:.6rem">Wallpaper</p>
@@ -82,6 +91,17 @@
             </div>
           </div>
         </div>`;
+
+      // Wire the preview toolbar (present only when the wallpaper has mockups).
+      const bar = host.querySelector(".device-bar");
+      if (bar) {
+        const preview = host.querySelector("[data-preview]");
+        const img = preview.querySelector("img");
+        SF.wireDeviceBar(bar, (device) => {
+          img.src = device === "artwork" ? img.dataset.thumb : mk[device] || img.dataset.thumb;
+          preview.classList.toggle("is-mockup", device !== "artwork");
+        });
+      }
     })
     .catch(() => {
       host.innerHTML = `<div class="empty-state">Could not load this wallpaper.</div>`;
