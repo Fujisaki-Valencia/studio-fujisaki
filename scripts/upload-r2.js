@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 /*
- * upload-r2 — upload a wallpaper's full-size pc.jpg / sp.jpg / uw.jpg to Cloudflare
+ * upload-r2 — upload a wallpaper's full-size pc / sp / uw images to Cloudflare
  * R2 (the standard 3-piece set: PC / phone / ultrawide), then write the resulting
- * absolute URLs into data/wallpapers.json.
+ * absolute URLs into data/wallpapers.json. Each source piece may be .jpg, .png or
+ * .webp; non-JPEG inputs are converted to JPEG (quality 90, override --quality)
+ * so R2 keys and URLs always end in `.jpg`.
  *
  * Usage:
- *   node upload-r2.js --slug <slug> --dir <folder-with-pc.jpg-sp.jpg-uw.jpg>
+ *   node upload-r2.js --slug <slug> --dir <folder-with-pc.*-sp.*-uw.*> [--quality 90]
  *
  * Example:
  *   node upload-r2.js --slug irises-screen --dir ./originals/irises-screen
@@ -65,15 +67,48 @@ async function main() {
     "R2_ENDPOINT",
   ]);
 
-  const files = [
-    { local: path.join(dir, "pc.jpg"), key: `${slug}/pc.jpg`, field: "pcUrl" },
-    { local: path.join(dir, "sp.jpg"), key: `${slug}/sp.jpg`, field: "spUrl" },
-    { local: path.join(dir, "uw.jpg"), key: `${slug}/uw.jpg`, field: "uwUrl" },
+  // Accept whichever image format is present for each piece (pc / sp / uw).
+  const EXT_TYPES = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".webp": "image/webp",
+  };
+  const KINDS = [
+    { base: "pc", field: "pcUrl" },
+    { base: "sp", field: "spUrl" },
+    { base: "uw", field: "uwUrl" },
   ];
 
+  const files = KINDS.map((k) => {
+    const local = Object.keys(EXT_TYPES)
+      .map((ext) => path.join(dir, k.base + ext))
+      .find((p) => fs.existsSync(p));
+    return { ...k, local };
+  });
+
+  const missing = files.filter((f) => !f.local).map((f) => `${f.base}.(jpg|png|webp)`);
+  if (missing.length) {
+    console.error(`Missing image(s) in ${dir}: ${missing.join(", ")}`);
+    process.exit(1);
+  }
+
+  // Output is always JPEG: png/webp/etc. are converted before upload, jpg is sent
+  // as-is. So the R2 key and the wallpapers.json URL always end in `.jpg`.
+  const JPEG_QUALITY = Number(flags.quality) || 90;
   for (const f of files) {
-    if (!fs.existsSync(f.local)) {
-      console.error(`Expected file not found: ${f.local}`);
+    const ext = path.extname(f.local).toLowerCase();
+    f.key = `${slug}/${f.base}.jpg`;
+    f.contentType = "image/jpeg";
+    f.needsConvert = ext !== ".jpg" && ext !== ".jpeg";
+  }
+
+  let sharp = null;
+  if (files.some((f) => f.needsConvert)) {
+    try {
+      sharp = require("sharp");
+    } catch (e) {
+      console.error("Converting to JPEG needs `sharp`. Run `npm install` inside scripts/.");
       process.exit(1);
     }
   }
@@ -99,14 +134,18 @@ async function main() {
   const urls = {};
 
   for (const f of files) {
-    const body = fs.readFileSync(f.local);
-    process.stdout.write(`Uploading ${f.key} … `);
+    const body = f.needsConvert
+      ? await sharp(f.local).jpeg({ quality: JPEG_QUALITY }).toBuffer()
+      : fs.readFileSync(f.local);
+    process.stdout.write(
+      `Uploading ${f.key}${f.needsConvert ? ` (converted from ${path.extname(f.local)})` : ""} … `
+    );
     await s3.send(
       new PutObjectCommand({
         Bucket: process.env.R2_BUCKET,
         Key: f.key,
         Body: body,
-        ContentType: "image/jpeg",
+        ContentType: f.contentType,
         CacheControl: "public, max-age=31536000, immutable",
       })
     );

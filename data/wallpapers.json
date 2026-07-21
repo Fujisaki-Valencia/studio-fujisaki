@@ -71,6 +71,18 @@
       "pcUrl": "https://REPLACE-ME.r2.example.com/maple-viewing-takao/pc.jpg",
       "spUrl": "https://REPLACE-ME.r2.example.com/maple-viewing-takao/sp.jpg",
       "uwUrl": "https://REPLACE-ME.r2.example.com/maple-viewing-takao/uw.jpg"
+    },
+    {
+      "slug": "01_hokusai-kumonokakehashi",
+      "title": "The Hanging-Cloud Bridge at Mount Gyōdō near Ashikaga",
+      "date": "2026-07-22",
+      "artist": "Katsushika Hokusai",
+      "era": "Edo period, c. 1833–34",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/01_hokusai-kumonokakehashi.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/01_hokusai-kumonokakehashi/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/01_hokusai-kumonokakehashi/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/01_hokusai-kumonokakehashi/uw.jpg"
     }
   ]
 }
