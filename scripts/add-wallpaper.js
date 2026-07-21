@@ -10,7 +10,9 @@
  *
  * Only --title is required. artist / era / museum are optional (a work with no
  * source is fine — the wallpaper page simply hides the rows it doesn't have).
- * The slug is auto-generated from the title (override with --slug).
+ * A `date` (today, YYYY-MM-DD) is added automatically as the home-feed ordering
+ * key (newest first); override with --date. The slug is auto-generated from the
+ * title (override with --slug).
  * thumb defaults to  thumbs/<slug>.webp  and its existence is verified.
  * pcUrl / spUrl / uwUrl (PC / phone / ultrawide — the standard 3-piece set)
  * default to REPLACE-ME placeholders here — `upload-r2` fills the real URLs in later.
@@ -30,6 +32,13 @@ const REQUIRED = ["title"];
 const OPTIONAL = ["artist", "era", "museum"];
 // Standard 3-piece download set — every entry must carry all three URLs.
 const URL_FIELDS = ["pcUrl", "spUrl", "uwUrl"];
+
+// Today's date as YYYY-MM-DD in local time (used as the ordering key).
+function todayISO() {
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
 
 function slugify(s) {
   return String(s)
@@ -129,6 +138,8 @@ async function main() {
   const R2 = process.env.R2_PUBLIC_BASE_URL || "https://REPLACE-ME.r2.example.com";
 
   const entry = { slug, title: input.title };
+  // Ordering key for the home feed (newest first). Override with --date YYYY-MM-DD.
+  entry.date = flags.date || todayISO();
   // Only write optional metadata that was actually provided.
   for (const key of OPTIONAL) {
     if (input[key]) entry[key] = input[key];

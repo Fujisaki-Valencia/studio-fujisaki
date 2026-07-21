@@ -165,6 +165,7 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 ```json
 {
   "slug": "…", "title": "…",
+  "date": "2026-07-22",
   "artist": "…", "era": "…", "museum": "…",
   "thumb": "thumbs/<slug>.webp",
   "pcUrl": "https://<r2-base>/<slug>/pc.jpg",
@@ -176,6 +177,12 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 （必須は `slug` / `title` と3点ダウンロードセット `pcUrl`/`spUrl`/`uwUrl`。
 `artist`/`era`/`museum` は任意で、無い作品は作品ページで該当行を表示しません。
 タブレット版は持ちません。項目は自由に追加でき、レンダラは未知のキーを無視します。）
+
+### 掲載順
+
+トップは **`date`（YYYY-MM-DD）の降順＝新着が上**で表示されます。`add-wallpaper` は追加時に
+今日の日付を自動で入れます（`--date 2026-07-22` で上書き可）。並び順を変えたいときは、その作品の
+`date` を編集するだけです。`date` が無い作品は一番下に回ります。
 
 ---
 

@@ -26,7 +26,12 @@
 
   SF.loadWallpapers()
     .then((items) => {
-      const all = items.slice().reverse(); // newest first
+      // Newest first, by `date` (ISO YYYY-MM-DD sorts chronologically as text).
+      // Ties keep their original array order (Array.sort is stable); entries
+      // without a date sink to the bottom.
+      const all = items
+        .slice()
+        .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
       if (!all.length) {
         grid.innerHTML = `<p class="empty-state">No wallpapers yet.</p>`;
         return;
