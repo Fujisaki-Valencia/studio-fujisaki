@@ -1,0 +1,22 @@
+# --- Secrets: never commit ---
+.env
+.env.*
+!.env.example
+
+# --- Full-size images live in external storage (R2), NOT in git ---
+# Keep only lightweight thumbs/ in the repo.
+originals/
+fullsize/
+uploads/
+*.psd
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

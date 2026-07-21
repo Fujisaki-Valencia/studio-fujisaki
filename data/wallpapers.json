@@ -1,0 +1,70 @@
+{
+  "wallpapers": [
+    {
+      "slug": "great-wave-kanagawa",
+      "title": "Under the Wave off Kanagawa",
+      "artist": "Katsushika Hokusai",
+      "era": "Edo period, c. 1831",
+      "museum": "The Metropolitan Museum of Art",
+      "collection": "ink-and-mist",
+      "thumb": "thumbs/great-wave-kanagawa.webp",
+      "pcUrl": "https://REPLACE-ME.r2.example.com/great-wave-kanagawa/pc.jpg",
+      "spUrl": "https://REPLACE-ME.r2.example.com/great-wave-kanagawa/sp.jpg"
+    },
+    {
+      "slug": "fine-wind-clear-morning",
+      "title": "Fine Wind, Clear Morning",
+      "artist": "Katsushika Hokusai",
+      "era": "Edo period, c. 1830",
+      "museum": "The Art Institute of Chicago",
+      "collection": "ink-and-mist",
+      "thumb": "thumbs/fine-wind-clear-morning.webp",
+      "pcUrl": "https://REPLACE-ME.r2.example.com/fine-wind-clear-morning/pc.jpg",
+      "spUrl": "https://REPLACE-ME.r2.example.com/fine-wind-clear-morning/sp.jpg"
+    },
+    {
+      "slug": "irises-screen",
+      "title": "Irises",
+      "artist": "Ogata Kōrin",
+      "era": "Edo period, c. 1710s",
+      "museum": "Nezu Museum",
+      "collection": "sage-and-stone",
+      "thumb": "thumbs/irises-screen.webp",
+      "pcUrl": "https://REPLACE-ME.r2.example.com/irises-screen/pc.jpg",
+      "spUrl": "https://REPLACE-ME.r2.example.com/irises-screen/sp.jpg"
+    },
+    {
+      "slug": "pine-trees-screen",
+      "title": "Pine Trees",
+      "artist": "Hasegawa Tōhaku",
+      "era": "Azuchi–Momoyama period, c. 1595",
+      "museum": "Tokyo National Museum",
+      "collection": "sage-and-stone",
+      "thumb": "thumbs/pine-trees-screen.webp",
+      "pcUrl": "https://REPLACE-ME.r2.example.com/pine-trees-screen/pc.jpg",
+      "spUrl": "https://REPLACE-ME.r2.example.com/pine-trees-screen/sp.jpg"
+    },
+    {
+      "slug": "red-and-white-plum-blossoms",
+      "title": "Red and White Plum Blossoms",
+      "artist": "Ogata Kōrin",
+      "era": "Edo period, c. 1710s",
+      "museum": "MOA Museum of Art",
+      "collection": "warm-sand",
+      "thumb": "thumbs/red-and-white-plum-blossoms.webp",
+      "pcUrl": "https://REPLACE-ME.r2.example.com/red-and-white-plum-blossoms/pc.jpg",
+      "spUrl": "https://REPLACE-ME.r2.example.com/red-and-white-plum-blossoms/sp.jpg"
+    },
+    {
+      "slug": "maple-viewing-takao",
+      "title": "Maple Viewing at Takao",
+      "artist": "Kanō Hideyori",
+      "era": "Muromachi period, 16th century",
+      "museum": "Tokyo National Museum",
+      "collection": "warm-sand",
+      "thumb": "thumbs/maple-viewing-takao.webp",
+      "pcUrl": "https://REPLACE-ME.r2.example.com/maple-viewing-takao/pc.jpg",
+      "spUrl": "https://REPLACE-ME.r2.example.com/maple-viewing-takao/sp.jpg"
+    }
+  ]
+}

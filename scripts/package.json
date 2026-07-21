@@ -1,0 +1,23 @@
+{
+  "name": "studio-fujisaki-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Operational helper scripts for adding wallpapers to Studio Fujisaki.",
+  "type": "commonjs",
+  "bin": {
+    "gen-thumb": "gen-thumb.js",
+    "add-wallpaper": "add-wallpaper.js",
+    "upload-r2": "upload-r2.js"
+  },
+  "scripts": {
+    "gen-thumb": "node gen-thumb.js",
+    "add-wallpaper": "node add-wallpaper.js",
+    "upload-r2": "node upload-r2.js",
+    "gen-sitemap": "node gen-sitemap.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0",
+    "dotenv": "^16.4.5",
+    "sharp": "^0.33.5"
+  }
+}
