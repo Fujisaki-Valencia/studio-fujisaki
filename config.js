@@ -18,4 +18,10 @@ window.CONFIG = {
   // --- 公開サイトのURL（OGP・sitemap 用の絶対URL生成に使用） ---
   // 独自ドメイン移行後はここを差し替える。末尾スラッシュなし。
   SITE_URL: "https://fujisaki-valencia.github.io/studio-fujisaki",
+
+  // --- 既定のOGP画像（作品ページ以外で使用） ---
+  // 相対パス。SITE_URL と結合して絶対URLになる。
+  DEFAULT_OG_IMAGE: "mockups/01_hokusai-kumonokakehashi/macbook.webp",
+  DEFAULT_OG_IMAGE_WIDTH: 900,
+  DEFAULT_OG_IMAGE_HEIGHT: 675,
 };

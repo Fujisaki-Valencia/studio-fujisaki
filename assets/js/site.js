@@ -110,6 +110,14 @@
     const desc = opts.description || C.TAGLINE;
     const url = C.SITE_URL + "/" + (opts.path || "");
 
+    // Fall back to the site's default OG image when a page supplies none.
+    let image = opts.image, iw = opts.imageWidth, ih = opts.imageHeight;
+    if (!image && C.DEFAULT_OG_IMAGE) {
+      image = C.SITE_URL + "/" + C.DEFAULT_OG_IMAGE;
+      iw = C.DEFAULT_OG_IMAGE_WIDTH;
+      ih = C.DEFAULT_OG_IMAGE_HEIGHT;
+    }
+
     document.title = title;
     upsertMeta("name", "description", desc);
 
@@ -119,17 +127,15 @@
     upsertMeta("property", "og:type", opts.type || "website");
     upsertMeta("property", "og:url", url);
 
-    upsertMeta("name", "twitter:card",
-      opts.image ? "summary_large_image" : "summary");
+    upsertMeta("name", "twitter:card", image ? "summary_large_image" : "summary");
     upsertMeta("name", "twitter:title", title);
     upsertMeta("name", "twitter:description", desc);
 
-    if (opts.image) {
-      upsertMeta("property", "og:image", opts.image);
-      upsertMeta("name", "twitter:image", opts.image);
-      // Pinterest / vertical OG support
-      if (opts.imageWidth) upsertMeta("property", "og:image:width", String(opts.imageWidth));
-      if (opts.imageHeight) upsertMeta("property", "og:image:height", String(opts.imageHeight));
+    if (image) {
+      upsertMeta("property", "og:image", image);
+      upsertMeta("name", "twitter:image", image);
+      if (iw) upsertMeta("property", "og:image:width", String(iw));
+      if (ih) upsertMeta("property", "og:image:height", String(ih));
     }
   };
 

@@ -20,14 +20,15 @@
 
       const byArtist = w.artist ? ` by ${w.artist}` : "";
 
-      // Vertical thumb is used as OG image so Pinterest previews stay tall.
+      // OG image: this wallpaper's MacBook mockup (4:3), falling back to its thumb.
+      const hasMacbook = w.mockups && w.mockups.macbook;
       SF.setMeta({
         title: w.title,
-        description: `${w.title}${byArtist} — free Japandi wallpaper. Download for PC (4K), phone and ultrawide.`,
+        description: `${w.title}${byArtist} — free Japandi wallpaper. Download for PC & tablet, phone and ultrawide.`,
         type: "article",
-        image: C.SITE_URL + "/" + w.thumb,
-        imageWidth: 600,
-        imageHeight: 900,
+        image: C.SITE_URL + "/" + (hasMacbook ? w.mockups.macbook : w.thumb),
+        imageWidth: hasMacbook ? 900 : 600,
+        imageHeight: hasMacbook ? 675 : 338,
         path: "wallpaper.html?slug=" + w.slug,
       });
 
