@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://REPLACE-ME.example.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/about.html</loc><priority>0.5</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/license.html</loc><priority>0.4</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/privacy.html</loc><priority>0.3</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=01_hokusai-kumonokakehashi</loc><priority>0.6</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=02_keisen-fishandplants</loc><priority>0.6</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=03_kiitsu-flowersofallseasons</loc><priority>0.6</priority></url>
-  <url><loc>https://REPLACE-ME.example.com/wallpaper.html?slug=04_hokusai-gaifukaisei</loc><priority>0.6</priority></url>
+  <url><loc>https://fujisaki-valencia.github.io/studio-fujisaki/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://fujisaki-valencia.github.io/studio-fujisaki/about.html</loc><priority>0.5</priority></url>
+  <url><loc>https://fujisaki-valencia.github.io/studio-fujisaki/license.html</loc><priority>0.4</priority></url>
+  <url><loc>https://fujisaki-valencia.github.io/studio-fujisaki/privacy.html</loc><priority>0.3</priority></url>
+  <url><loc>https://fujisaki-valencia.github.io/studio-fujisaki/wallpaper.html?slug=01_hokusai-kumonokakehashi</loc><priority>0.6</priority></url>
+  <url><loc>https://fujisaki-valencia.github.io/studio-fujisaki/wallpaper.html?slug=02_keisen-fishandplants</loc><priority>0.6</priority></url>
+  <url><loc>https://fujisaki-valencia.github.io/studio-fujisaki/wallpaper.html?slug=03_kiitsu-flowersofallseasons</loc><priority>0.6</priority></url>
+  <url><loc>https://fujisaki-valencia.github.io/studio-fujisaki/wallpaper.html?slug=04_hokusai-gaifukaisei</loc><priority>0.6</priority></url>
 </urlset>

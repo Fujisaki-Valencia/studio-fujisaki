@@ -12,7 +12,7 @@ const path = require("path");
 const REPO = path.resolve(__dirname, "..");
 const base = (process.argv.includes("--base")
   ? process.argv[process.argv.indexOf("--base") + 1]
-  : process.env.SITE_URL || "https://REPLACE-ME.example.com"
+  : process.env.SITE_URL || "https://fujisaki-valencia.github.io/studio-fujisaki"
 ).replace(/\/+$/, "");
 
 const data = JSON.parse(fs.readFileSync(path.join(REPO, "data", "wallpapers.json"), "utf8"));

@@ -17,5 +17,5 @@ window.CONFIG = {
 
   // --- 公開サイトのURL（OGP・sitemap 用の絶対URL生成に使用） ---
   // 独自ドメイン移行後はここを差し替える。末尾スラッシュなし。
-  SITE_URL: "https://REPLACE-ME.example.com",
+  SITE_URL: "https://fujisaki-valencia.github.io/studio-fujisaki",
 };

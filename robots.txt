@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Replace the host below with your real domain when you go live.
-Sitemap: https://REPLACE-ME.example.com/sitemap.xml
+Sitemap: https://fujisaki-valencia.github.io/studio-fujisaki/sitemap.xml
