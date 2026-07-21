@@ -11,8 +11,8 @@
  *
  * The slug is auto-generated from the title (override with --slug).
  * thumb defaults to  thumbs/<slug>.webp  and its existence is verified.
- * pcUrl / spUrl are left as REPLACE-ME placeholders here — `upload-r2`
- * fills the real URLs in later.
+ * pcUrl / spUrl / uwUrl (PC / phone / ultrawide — the standard 3-piece set)
+ * default to REPLACE-ME placeholders here — `upload-r2` fills the real URLs in later.
  *
  * Before writing, it validates: JSON parses, required fields present,
  * slug is unique, and the thumb file exists.
@@ -26,6 +26,8 @@ const JSON_PATH = path.join(REPO, "data", "wallpapers.json");
 
 const VALID_COLLECTIONS = ["ink-and-mist", "sage-and-stone", "warm-sand"];
 const REQUIRED = ["title", "artist", "era", "museum", "collection"];
+// Standard 3-piece download set — every entry must carry all three URLs.
+const URL_FIELDS = ["pcUrl", "spUrl", "uwUrl"];
 
 function slugify(s) {
   return String(s)
@@ -98,6 +100,9 @@ function validate(entry, existing) {
   for (const key of REQUIRED) {
     if (!entry[key]) errors.push(`missing required field: ${key}`);
   }
+  for (const key of URL_FIELDS) {
+    if (!entry[key]) errors.push(`missing required URL: ${key}`);
+  }
   if (entry.collection && !VALID_COLLECTIONS.includes(entry.collection)) {
     errors.push(
       `collection "${entry.collection}" is not one of: ${VALID_COLLECTIONS.join(", ")}`
@@ -142,6 +147,7 @@ async function main() {
     thumb: flags.thumb || `thumbs/${slug}.webp`,
     pcUrl: flags.pcUrl || `${R2}/${slug}/pc.jpg`,
     spUrl: flags.spUrl || `${R2}/${slug}/sp.jpg`,
+    uwUrl: flags.uwUrl || `${R2}/${slug}/uw.jpg`,
   };
 
   const json = readJson();

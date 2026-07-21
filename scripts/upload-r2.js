@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /*
- * upload-r2 — upload a wallpaper's full-size pc.jpg / sp.jpg to Cloudflare R2,
- * then write the resulting absolute URLs into data/wallpapers.json.
+ * upload-r2 — upload a wallpaper's full-size pc.jpg / sp.jpg / uw.jpg to Cloudflare
+ * R2 (the standard 3-piece set: PC / phone / ultrawide), then write the resulting
+ * absolute URLs into data/wallpapers.json.
  *
  * Usage:
- *   node upload-r2.js --slug <slug> --dir <folder-with-pc.jpg-and-sp.jpg>
+ *   node upload-r2.js --slug <slug> --dir <folder-with-pc.jpg-sp.jpg-uw.jpg>
  *
  * Example:
  *   node upload-r2.js --slug irises-screen --dir ./originals/irises-screen
@@ -67,6 +68,7 @@ async function main() {
   const files = [
     { local: path.join(dir, "pc.jpg"), key: `${slug}/pc.jpg`, field: "pcUrl" },
     { local: path.join(dir, "sp.jpg"), key: `${slug}/sp.jpg`, field: "spUrl" },
+    { local: path.join(dir, "uw.jpg"), key: `${slug}/uw.jpg`, field: "uwUrl" },
   ];
 
   for (const f of files) {
@@ -121,16 +123,19 @@ async function main() {
     );
     console.warn(`  pcUrl: ${urls.pcUrl}`);
     console.warn(`  spUrl: ${urls.spUrl}`);
+    console.warn(`  uwUrl: ${urls.uwUrl}`);
     console.warn("  Run add-wallpaper first, then re-run upload-r2.");
     process.exit(0);
   }
   entry.pcUrl = urls.pcUrl;
   entry.spUrl = urls.spUrl;
+  entry.uwUrl = urls.uwUrl;
   fs.writeFileSync(JSON_PATH, JSON.stringify(json, null, 2) + "\n");
 
   console.log(`✓ URLs written to wallpapers.json for "${slug}":`);
   console.log(`  pcUrl: ${urls.pcUrl}`);
   console.log(`  spUrl: ${urls.spUrl}`);
+  console.log(`  uwUrl: ${urls.uwUrl}`);
 }
 
 main().catch((err) => {

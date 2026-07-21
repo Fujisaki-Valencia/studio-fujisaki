@@ -55,6 +55,8 @@
                  rel="noopener">↓ Download for PC (4K)</a>
               <a class="btn btn--solid" href="${SF.escape(w.spUrl)}" download
                  rel="noopener">↓ Download for Phone</a>
+              <a class="btn btn--solid" href="${SF.escape(w.uwUrl)}" download
+                 rel="noopener">↓ Download for Ultrawide</a>
               <a class="btn btn--kofi" href="${SF.escape(C.KOFI_URL)}"
                  target="_blank" rel="noopener">☕ Support on Ko-fi</a>
             </div>

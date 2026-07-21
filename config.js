@@ -6,12 +6,12 @@
 window.CONFIG = {
   // --- ブランド ---
   BRAND_NAME: "Studio Fujisaki",
-  TAGLINE: "Free Japandi wallpapers from public-domain Japanese art",
+  TAGLINE: "Japandi wallpapers, made by someone who loves them too.",
 
   // --- 外部URL ---
   // フルサイズ画像を置く外部ストレージ（Cloudflare R2 想定）のベースURL。
   // JSON の pcUrl/spUrl は upload-r2 スクリプトがこの値を元に絶対URLで書き込みます。
-  R2_BASE_URL: "https://REPLACE-ME.r2.example.com",
+  R2_BASE_URL: "https://pub-d55846f181c2469888431e86756175c8.r2.dev",
   // Ko-fi 投げ銭
   KOFI_URL: "https://ko-fi.com/REPLACE-ME",
 
