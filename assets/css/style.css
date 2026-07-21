@@ -90,6 +90,20 @@ h3 { font-size: 1.15rem; }
 }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--text); }
 
+/* On phones, keep the header to two lines: brand name (unwrapped) + subtitle
+   on the left, nav on the right. Shrink both so they fit one row together. */
+@media (max-width: 600px) {
+  .site-header .container { gap: 0.6rem; min-height: 60px; }
+  .brand { font-size: 1.02rem; letter-spacing: 0.08em; white-space: nowrap; }
+  .brand span { font-size: 0.55rem; letter-spacing: 0.16em; margin-top: 1px; }
+  .nav { gap: 0.85rem; flex-wrap: nowrap; }
+  .nav a { font-size: 0.68rem; letter-spacing: 0.05em; }
+}
+/* Very narrow screens: drop the subtitle so the header stays tidy. */
+@media (max-width: 360px) {
+  .brand span { display: none; }
+}
+
 /* ------- hero ------- */
 .hero { padding-block: clamp(3.5rem, 10vw, 7rem) 2rem; text-align: center; }
 .hero p.tagline {
