@@ -75,7 +75,7 @@
 
             <div class="download-block">
               <a class="btn btn--solid" href="${SF.escape(w.pcUrl)}" download
-                 rel="noopener">↓ Download for PC (4K)</a>
+                 rel="noopener">↓ Download for PC &amp; Tablet</a>
               <a class="btn btn--solid" href="${SF.escape(w.spUrl)}" download
                  rel="noopener">↓ Download for Phone</a>
               <a class="btn btn--solid" href="${SF.escape(w.uwUrl)}" download

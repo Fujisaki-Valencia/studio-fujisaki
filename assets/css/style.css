@@ -91,7 +91,7 @@ h3 { font-size: 1.15rem; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--text); }
 
 /* ------- hero ------- */
-.hero { padding-block: clamp(3.5rem, 10vw, 7rem); text-align: center; }
+.hero { padding-block: clamp(3.5rem, 10vw, 7rem) 2rem; text-align: center; }
 .hero p.tagline {
   max-width: 44ch; margin: 1.2rem auto 0; color: var(--text-muted);
   font-size: 1.05rem;
@@ -142,12 +142,11 @@ h3 { font-size: 1.15rem; }
 .device-bar {
   display: flex; flex-wrap: wrap; gap: 0.5rem;
   justify-content: center;
-  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: 1.5rem;
   /* Stay visible while scrolling, docked just under the sticky header. */
-  position: sticky; top: 72px; z-index: 10;
+  position: sticky; top: 0; z-index: 10;
   background: var(--bg);
   padding: 0.7rem 0;
-  border-bottom: 1px solid var(--line);
 }
 .device-btn {
   display: inline-flex; align-items: center; gap: 0.4rem;
@@ -162,9 +161,9 @@ h3 { font-size: 1.15rem; }
 .device-btn.is-active {
   background: var(--accent-ink); color: var(--surface); border-color: var(--accent-ink);
 }
-@media (max-width: 520px) {
-  .device-btn span { position: absolute; left: -9999px; } /* icons only on small screens */
-}
+/* Icon-only on all screens; the label stays for screen readers. */
+.device-btn span { position: absolute; left: -9999px; }
+.device-btn { padding: 0.55rem 0.75rem; }
 
 /* When a device mode is active, show the whole mockup (contain) in a 4:3 box. */
 .card-grid[data-mode] .thumb-wrap { aspect-ratio: 4 / 3; background: var(--bg-alt); }
