@@ -135,6 +135,10 @@ h3 { font-size: 1.15rem; }
 }
 
 /* ------- device preview toolbar ------- */
+/* The mount wrapper must not become the sticky containing block, or the bar
+   only "sticks" within its own height. display:contents removes its box so the
+   bar sticks within the tall section instead. */
+[data-devicebar] { display: contents; }
 .device-bar {
   display: flex; flex-wrap: wrap; gap: 0.5rem;
   justify-content: center;
