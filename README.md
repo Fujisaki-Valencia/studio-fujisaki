@@ -15,8 +15,7 @@
 
 ```
 studio-fujisaki/
-├── index.html            トップ：紹介 + おすすめ壁紙9件（新着順）+ VIEW MORE
-├── gallery.html          全壁紙の一覧グリッド（新着順）
+├── index.html            トップ：紹介 + 全壁紙（新着順・スクロールで順次表示）
 ├── wallpaper.html        作品個別ページ               (?slug=<slug>)
 ├── about.html
 ├── privacy.html          AdSense 対応の雛形（Cookie / アクセス解析の記載欄）
@@ -25,7 +24,7 @@ studio-fujisaki/
 ├── config.js             ← 編集箇所：ブランド・各種URL・コレクション（1箇所で管理）
 ├── assets/
 │   ├── css/style.css
-│   └── js/{site,home,gallery,wallpaper}.js
+│   └── js/{site,home,wallpaper}.js
 ├── data/wallpapers.json  ← 作品データの唯一の源
 ├── thumbs/               WebP サムネイル（600px・リポジトリに含める）
 ├── scripts/              gen-thumb · add-wallpaper · upload-r2 (+ gen-sitemap)
@@ -71,7 +70,6 @@ npm install
 | `R2_BASE_URL`   | R2 バケットの公開ベースURL（`.env` の `R2_PUBLIC_BASE_URL` と一致させる） |
 | `KOFI_URL`      | あなたの Ko-fi ページ                                              |
 | `SITE_URL`      | 公開サイトのURL（OGP / sitemap の絶対URL生成に使用）               |
-| `COLLECTIONS`   | コレクションの slug / 表示名 / 説明                                |
 
 あわせて **`sitemap.xml`** と **`robots.txt`** 内の `https://REPLACE-ME.example.com` も実URLに置き換えてください
 （または `npm run gen-sitemap -- --base https://your-domain.com` で sitemap を再生成）。
@@ -137,9 +135,9 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
    → pc.jpg / sp.jpg / uw.jpg をアップロードし、pcUrl/spUrl/uwUrl を wallpapers.json に反映
 
 4. メタデータのブロックを追記（slug 自動生成、JSON・必須項目・thumb 存在を検証）:
-      node add-wallpaper.js --title "…" --artist "…" --era "…" \
-                            --museum "…" --collection <collection-slug>
-   （フラグ無しで実行すると対話モード）
+      node add-wallpaper.js --title "…" [--artist "…"] [--era "…"] [--museum "…"]
+   （必須は --title のみ。artist / era / museum は任意。
+     フラグ無しで実行すると対話モード）
 
    ヒント: 先に add-wallpaper を実行してもよい。その場合 upload-r2 が
    見つけた作品に実URLを埋め込む。どちらの順でも動く。
@@ -166,8 +164,8 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 
 ```json
 {
-  "slug": "…", "title": "…", "artist": "…", "era": "…", "museum": "…",
-  "collection": "ink-and-mist | sage-and-stone | warm-sand",
+  "slug": "…", "title": "…",
+  "artist": "…", "era": "…", "museum": "…",
   "thumb": "thumbs/<slug>.webp",
   "pcUrl": "https://<r2-base>/<slug>/pc.jpg",
   "spUrl": "https://<r2-base>/<slug>/sp.jpg",
@@ -175,8 +173,9 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 }
 ```
 
-（タブレット版は持ちません。`pcUrl`/`spUrl`/`uwUrl` が必須の3点ダウンロードセットです。
-項目は自由に追加でき、レンダラは未知のキーを無視します。）
+（必須は `slug` / `title` と3点ダウンロードセット `pcUrl`/`spUrl`/`uwUrl`。
+`artist`/`era`/`museum` は任意で、無い作品は作品ページで該当行を表示しません。
+タブレット版は持ちません。項目は自由に追加でき、レンダラは未知のキーを無視します。）
 
 ---
 

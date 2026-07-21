@@ -53,7 +53,6 @@
       host.innerHTML = `
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="index.html">Home</a> ›
-          <a href="gallery.html">All wallpapers</a> ›
           <span>${SF.escape(w.title)}</span>
         </nav>
         <div class="detail">

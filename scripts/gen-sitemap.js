@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * gen-sitemap — regenerate ../sitemap.xml from wallpapers.json + collections.
+ * gen-sitemap — regenerate ../sitemap.xml from wallpapers.json.
  * (Optional helper.) The site base URL is read from --base or SITE_URL env,
  * falling back to the placeholder domain.
  *
@@ -19,7 +19,6 @@ const data = JSON.parse(fs.readFileSync(path.join(REPO, "data", "wallpapers.json
 
 const urls = [
   `  <url><loc>${base}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>`,
-  `  <url><loc>${base}/gallery.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
   `  <url><loc>${base}/about.html</loc><priority>0.5</priority></url>`,
   `  <url><loc>${base}/license.html</loc><priority>0.4</priority></url>`,
   `  <url><loc>${base}/privacy.html</loc><priority>0.3</priority></url>`,

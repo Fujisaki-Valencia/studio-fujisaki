@@ -4,11 +4,12 @@
  *
  * Two ways to run:
  *   1) Flags:
- *      node add-wallpaper.js \
- *        --title "Irises" --artist "Ogata Korin" --era "Edo period, c. 1710s" \
- *        --museum "Nezu Museum" --collection sage-and-stone
+ *      node add-wallpaper.js --title "Quiet No. 3" \
+ *        [--artist "…"] [--era "…"] [--museum "…"]
  *   2) Interactive (no flags): you'll be prompted for each field.
  *
+ * Only --title is required. artist / era / museum are optional (a work with no
+ * source is fine — the wallpaper page simply hides the rows it doesn't have).
  * The slug is auto-generated from the title (override with --slug).
  * thumb defaults to  thumbs/<slug>.webp  and its existence is verified.
  * pcUrl / spUrl / uwUrl (PC / phone / ultrawide — the standard 3-piece set)
@@ -24,8 +25,9 @@ const readline = require("readline");
 const REPO = path.resolve(__dirname, "..");
 const JSON_PATH = path.join(REPO, "data", "wallpapers.json");
 
-const VALID_COLLECTIONS = ["ink-and-mist", "sage-and-stone", "warm-sand"];
-const REQUIRED = ["title", "artist", "era", "museum", "collection"];
+const REQUIRED = ["title"];
+// Optional metadata — written only when provided.
+const OPTIONAL = ["artist", "era", "museum"];
 // Standard 3-piece download set — every entry must carry all three URLs.
 const URL_FIELDS = ["pcUrl", "spUrl", "uwUrl"];
 
@@ -62,15 +64,10 @@ function ask(rl, q, def) {
 async function collectInteractive(seed) {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
   const data = { ...seed };
-  data.title = await ask(rl, "Title", data.title);
-  data.artist = await ask(rl, "Artist", data.artist);
-  data.era = await ask(rl, "Era", data.era);
-  data.museum = await ask(rl, "Museum", data.museum);
-  data.collection = await ask(
-    rl,
-    `Collection (${VALID_COLLECTIONS.join(" / ")})`,
-    data.collection
-  );
+  data.title = await ask(rl, "Title (required)", data.title);
+  data.artist = await ask(rl, "Artist (optional)", data.artist);
+  data.era = await ask(rl, "Era (optional)", data.era);
+  data.museum = await ask(rl, "Source / museum (optional)", data.museum);
   rl.close();
   return data;
 }
@@ -103,11 +100,6 @@ function validate(entry, existing) {
   for (const key of URL_FIELDS) {
     if (!entry[key]) errors.push(`missing required URL: ${key}`);
   }
-  if (entry.collection && !VALID_COLLECTIONS.includes(entry.collection)) {
-    errors.push(
-      `collection "${entry.collection}" is not one of: ${VALID_COLLECTIONS.join(", ")}`
-    );
-  }
   if (existing.some((w) => w.slug === entry.slug)) {
     errors.push(`slug "${entry.slug}" already exists`);
   }
@@ -129,26 +121,22 @@ async function main() {
     artist: flags.artist,
     era: flags.era,
     museum: flags.museum,
-    collection: flags.collection,
   };
 
   const input = hasFlags ? seed : await collectInteractive(seed);
 
-  const slug = flags.slug ? slugify(flags.slug) : slugify(input.title);
+  const slug = flags.slug ? slugify(flags.slug) : slugify(input.title || "");
   const R2 = process.env.R2_PUBLIC_BASE_URL || "https://REPLACE-ME.r2.example.com";
 
-  const entry = {
-    slug,
-    title: input.title,
-    artist: input.artist,
-    era: input.era,
-    museum: input.museum,
-    collection: input.collection,
-    thumb: flags.thumb || `thumbs/${slug}.webp`,
-    pcUrl: flags.pcUrl || `${R2}/${slug}/pc.jpg`,
-    spUrl: flags.spUrl || `${R2}/${slug}/sp.jpg`,
-    uwUrl: flags.uwUrl || `${R2}/${slug}/uw.jpg`,
-  };
+  const entry = { slug, title: input.title };
+  // Only write optional metadata that was actually provided.
+  for (const key of OPTIONAL) {
+    if (input[key]) entry[key] = input[key];
+  }
+  entry.thumb = flags.thumb || `thumbs/${slug}.webp`;
+  entry.pcUrl = flags.pcUrl || `${R2}/${slug}/pc.jpg`;
+  entry.spUrl = flags.spUrl || `${R2}/${slug}/sp.jpg`;
+  entry.uwUrl = flags.uwUrl || `${R2}/${slug}/uw.jpg`;
 
   const json = readJson();
   const errors = validate(entry, json.wallpapers);

@@ -189,7 +189,7 @@ h3 { font-size: 1.15rem; }
 .site-footer .container { display: grid; gap: 1.5rem;
   grid-template-columns: 1fr; }
 @media (min-width: 720px) {
-  .site-footer .container { grid-template-columns: 1.5fr 1fr 1fr; }
+  .site-footer .container { grid-template-columns: 1.5fr 1fr; }
 }
 .site-footer h4 { font-family: var(--serif); font-weight: 400; margin: 0 0 0.8rem;
   font-size: 1rem; }
@@ -207,6 +207,9 @@ h3 { font-size: 1.15rem; }
 .breadcrumb a { color: var(--text-muted); }
 .breadcrumb a:hover { color: var(--text); }
 .empty-state { padding: 4rem 0; text-align: center; color: var(--text-muted); }
+.scroll-sentinel { height: 1px; }
+.scroll-status { margin-top: 2.5rem; font-size: 0.78rem; letter-spacing: 0.14em;
+  text-transform: uppercase; }
 .skip-link { position: absolute; left: -999px; }
 .skip-link:focus { left: 1rem; top: 1rem; background: var(--surface);
   padding: 0.5rem 1rem; z-index: 50; }

@@ -1,6 +1,6 @@
 /*
  * Studio Fujisaki — サイト設定（1 箇所で管理）
- * ここだけ書き換えれば、ブランド名・各種URL・コレクション定義を差し替えられます。
+ * ここだけ書き換えれば、ブランド名・各種URL を差し替えられます。
  * ※ 認証情報（R2 のキー等）は絶対にここへ書かないこと。→ .env を使用（scripts/ 参照）
  */
 window.CONFIG = {
@@ -18,26 +18,4 @@ window.CONFIG = {
   // --- 公開サイトのURL（OGP・sitemap 用の絶対URL生成に使用） ---
   // 独自ドメイン移行後はここを差し替える。末尾スラッシュなし。
   SITE_URL: "https://REPLACE-ME.example.com",
-
-  // --- コレクション定義（色/ムード別・3つ） ---
-  COLLECTIONS: [
-    {
-      slug: "ink-and-mist",
-      name: "Ink & Mist",
-      description:
-        "Monochrome washes and quiet fog. Sumi-e blacks softening into pale grey.",
-    },
-    {
-      slug: "sage-and-stone",
-      name: "Sage & Stone",
-      description:
-        "Muted greens and mineral greys. Calm, grounded, and understated.",
-    },
-    {
-      slug: "warm-sand",
-      name: "Warm Sand",
-      description:
-        "Soft ochres and clay tones. Warm neutrals with a gentle glow.",
-    },
-  ],
 };

@@ -22,11 +22,6 @@
       .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   };
 
-  SF.collectionName = function (slug) {
-    const c = (C.COLLECTIONS || []).find((x) => x.slug === slug);
-    return c ? c.name : slug;
-  };
-
   /* Load and cache wallpaper data. Returns a Promise<Array>. */
   let _dataPromise = null;
   SF.loadWallpapers = function () {
@@ -87,7 +82,6 @@
   /* ---------- header / footer ---------- */
   const NAV = [
     { href: "index.html", label: "Home", page: "home" },
-    { href: "gallery.html", label: "Wallpapers", page: "gallery" },
     { href: "about.html", label: "About", page: "about" },
     { href: "license.html", label: "License", page: "license" },
   ];
@@ -127,12 +121,8 @@
             </p>
           </div>
           <div>
-            <h4>Browse</h4>
-            <a href="index.html">Home</a>
-            <a href="gallery.html">All wallpapers</a>
-          </div>
-          <div>
             <h4>Site</h4>
+            <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="license.html">License / Credits</a>
             <a href="privacy.html">Privacy Policy</a>
