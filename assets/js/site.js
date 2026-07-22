@@ -175,10 +175,6 @@
           <div class="brand-block">
             <h4>${SF.escape(C.BRAND_NAME)}</h4>
             <p>${SF.escape(C.TAGLINE)}</p>
-            <p style="margin-top:1rem">
-              <a class="btn btn--kofi" href="${SF.escape(C.KOFI_URL)}"
-                 target="_blank" rel="noopener">☕ Support on Ko-fi</a>
-            </p>
           </div>
           <div>
             <h4>Site</h4>
@@ -194,8 +190,32 @@
       </footer>`;
   }
 
+  /* ---------- Ko-fi floating tip widget ---------- */
+  // Loads Ko-fi's overlay script and draws a site-wide floating "Tip Me" button.
+  // The username is taken from CONFIG.KOFI_URL's last path segment.
+  function loadKofiWidget() {
+    if (!C.KOFI_URL) return;
+    const user = C.KOFI_URL.replace(/\/+$/, "").split("/").pop();
+    if (!user || /REPLACE-ME/i.test(user)) return;
+    const s = document.createElement("script");
+    s.src = "https://storage.ko-fi.com/cdn/scripts/overlay-widget.js";
+    s.async = true;
+    s.onload = function () {
+      if (!window.kofiWidgetOverlay) return;
+      window.kofiWidgetOverlay.draw(user, {
+        type: "floating-chat",
+        "floating-chat.donateButton.text": "Tip Me",
+        // Japandi dark ink to match the site's solid buttons.
+        "floating-chat.donateButton.background-color": "#4c4a42",
+        "floating-chat.donateButton.text-color": "#faf9f6",
+      });
+    };
+    document.body.appendChild(s);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     renderHeader();
     renderFooter();
+    loadKofiWidget();
   });
 })();
