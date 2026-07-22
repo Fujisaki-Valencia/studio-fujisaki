@@ -10,10 +10,6 @@ fullsize/
 uploads/
 *.psd
 
-# --- Pinterest pin images: upload-only, regenerate with scripts/gen-pin.js ---
-# They are never served by the site, so there is no reason to carry them in git.
-pins/
-
 # --- Node ---
 node_modules/
 npm-debug.log*

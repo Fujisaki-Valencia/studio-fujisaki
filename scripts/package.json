@@ -15,7 +15,6 @@
     "add-wallpaper": "node add-wallpaper.js",
     "upload-r2": "node upload-r2.js",
     "gen-pages": "node gen-pages.js --prune",
-    "gen-pin": "node gen-pin.js",
     "gen-sitemap": "node gen-sitemap.js",
     "publish": "npm run gen-pages && npm run gen-sitemap"
   },
