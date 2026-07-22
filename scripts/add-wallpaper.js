@@ -10,8 +10,9 @@
  *
  * Only --title is required. artist / era / museum are optional (a work with no
  * source is fine — the wallpaper page simply hides the rows it doesn't have).
- * A `date` (today, YYYY-MM-DD) is added automatically as the home-feed ordering
- * key (newest first); override with --date. The slug is auto-generated from the
+ * A `date` (now, ISO timestamp) is added automatically as the home-feed ordering
+ * key (newest first, ties broken by time of day so same-day additions still stack
+ * newest-on-top); override with --date. The slug is auto-generated from the
  * title (override with --slug).
  * thumb defaults to  thumbs/<slug>.webp  and its existence is verified.
  * pcUrl / spUrl / uwUrl (PC / phone / ultrawide — the standard 3-piece set)
@@ -33,11 +34,10 @@ const OPTIONAL = ["artist", "era", "museum"];
 // Standard 3-piece download set — every entry must carry all three URLs.
 const URL_FIELDS = ["pcUrl", "spUrl", "uwUrl"];
 
-// Today's date as YYYY-MM-DD in local time (used as the ordering key).
-function todayISO() {
-  const d = new Date();
-  const p = (n) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+// Current instant as a full ISO timestamp (used as the ordering key, so
+// same-day additions still sort newest-first instead of tying).
+function nowISO() {
+  return new Date().toISOString();
 }
 
 function slugify(s) {
@@ -150,8 +150,8 @@ async function main() {
   const R2 = process.env.R2_PUBLIC_BASE_URL || "https://REPLACE-ME.r2.example.com";
 
   const entry = { slug, title: input.title };
-  // Ordering key for the home feed (newest first). Override with --date YYYY-MM-DD.
-  entry.date = flags.date || todayISO();
+  // Ordering key for the home feed (newest first). Override with --date.
+  entry.date = flags.date || nowISO();
   // Only write optional metadata that was actually provided.
   for (const key of OPTIONAL) {
     if (input[key]) entry[key] = input[key];
