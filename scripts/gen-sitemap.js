@@ -22,8 +22,11 @@ const urls = [
   `  <url><loc>${base}/about.html</loc><priority>0.5</priority></url>`,
   `  <url><loc>${base}/license.html</loc><priority>0.4</priority></url>`,
   `  <url><loc>${base}/privacy.html</loc><priority>0.3</priority></url>`,
+  // Each wallpaper's static page (built by gen-pages). The legacy
+  // wallpaper.html?slug= URL is deliberately left out: it redirects here, and
+  // listing both would be duplicate content.
   ...data.wallpapers.map(
-    (w) => `  <url><loc>${base}/wallpaper.html?slug=${w.slug}</loc><priority>0.6</priority></url>`
+    (w) => `  <url><loc>${base}/${w.page || `wallpaper.html?slug=${w.slug}`}</loc><priority>0.6</priority></url>`
   ),
 ];
 

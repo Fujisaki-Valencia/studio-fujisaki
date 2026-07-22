@@ -14,7 +14,10 @@
     "gen-mockups": "node gen-mockups.js",
     "add-wallpaper": "node add-wallpaper.js",
     "upload-r2": "node upload-r2.js",
-    "gen-sitemap": "node gen-sitemap.js"
+    "gen-pages": "node gen-pages.js --prune",
+    "gen-pin": "node gen-pin.js",
+    "gen-sitemap": "node gen-sitemap.js",
+    "publish": "npm run gen-pages && npm run gen-sitemap"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.600.0",

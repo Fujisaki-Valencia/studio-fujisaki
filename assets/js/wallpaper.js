@@ -1,8 +1,11 @@
-/* Wallpaper detail page. URL: wallpaper.html?slug=<slug> */
+/* Wallpaper detail page.
+   Normal URL: the static page built by scripts/gen-pages.js, which names its
+   wallpaper in <body data-slug="…">. The old wallpaper.html?slug=<slug> form
+   still resolves here as a fallback. */
 (function () {
   "use strict";
   const C = window.CONFIG;
-  const slug = SF.qs("slug");
+  const slug = document.body.getAttribute("data-slug") || SF.qs("slug");
   const host = document.querySelector("[data-detail]");
   if (!host) return;
 
@@ -35,6 +38,14 @@
         return;
       }
 
+      // Legacy ?slug= URL: hand off to the wallpaper's static page so there is
+      // only ever one indexable URL per wallpaper. (Static pages carry
+      // data-slug on <body>, so they never take this branch.)
+      if (!document.body.getAttribute("data-slug") && w.page) {
+        location.replace(w.page);
+        return;
+      }
+
       const byArtist = w.artist ? ` by ${w.artist}` : "";
 
       // OG image: this wallpaper's MacBook mockup (4:3), falling back to its thumb.
@@ -46,7 +57,7 @@
         image: C.SITE_URL + "/" + (hasMacbook ? w.mockups.macbook : w.thumb),
         imageWidth: hasMacbook ? 900 : 600,
         imageHeight: hasMacbook ? 675 : 338,
-        path: "wallpaper.html?slug=" + w.slug,
+        path: w.page || "wallpaper.html?slug=" + w.slug,
       });
 
       // Only show the metadata rows that this wallpaper actually has.

@@ -23,7 +23,7 @@
       .join(" ");
     const initial = currentDevice !== "artwork" && m[currentDevice] ? m[currentDevice] : w.thumb;
     return `
-      <a class="card" href="wallpaper.html?slug=${encodeURIComponent(w.slug)}">
+      <a class="card" href="${SF.escape(w.page || "wallpaper.html?slug=" + encodeURIComponent(w.slug))}">
         <div class="thumb-wrap">
           <img src="${SF.escape(initial)}" alt="${SF.escape(w.title)}"
                loading="lazy" width="600" height="375"

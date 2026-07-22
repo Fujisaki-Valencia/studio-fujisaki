@@ -11,6 +11,7 @@
 - トップは**全壁紙を新着順**（`date` 降順）で表示し、スクロールで順次読み込み（無限スクロール）。
 - 一覧・作品ページに **デバイスモックのプレビュー切替**（Ultrawide / MacBook / iPad / iPhone）。作品ごとの `mockups/<slug>/<device>.webp` を使用（任意）。
 - OGP / Twitter Card 対応。作品ページは自身の **MacBook モック**、その他ページは既定OG画像（`config.js` の `DEFAULT_OG_IMAGE`）。
+- 作品ページは `gen-pages` で**静的HTML**として生成。title / description / canonical / OGP / JSON-LD を `<head>` に直書きするため、**JS を実行しないクローラ（Pinterest など）からも正しく読める**。
 - 作品追加を半自動化する `scripts/` と、Claude Code 用スラッシュコマンド `/upload-r2`・`/delete-originals` 付き。
 
 ---
@@ -20,7 +21,8 @@
 ```
 studio-fujisaki/
 ├── index.html            トップ：紹介 + 全壁紙（新着順・スクロールで順次表示）
-├── wallpaper.html        作品個別ページ               (?slug=<slug>)
+├── <page>.html           作品個別ページ（gen-pages が生成・直下に配置）
+├── wallpaper.html        旧 ?slug= 形式の受け皿。上記の静的ページへ転送
 ├── about.html
 ├── privacy.html          AdSense 対応の雛形（Cookie / アクセス解析の記載欄）
 ├── license.html          License / Credits
@@ -32,7 +34,9 @@ studio-fujisaki/
 ├── data/wallpapers.json  ← 作品データの唯一の源
 ├── thumbs/               WebP サムネイル（600px・リポジトリに含める）
 ├── mockups/              デバイスモックのWebP（<slug>/<device>.webp・任意）
-├── scripts/              gen-thumb · gen-mockups · add-wallpaper · upload-r2 (+ gen-sitemap)
+├── pins/                 Pinterest 用 2:3 ピン画像（gen-pin が生成・git 除外）
+├── scripts/              gen-thumb · gen-mockups · add-wallpaper · upload-r2
+│                         · gen-pages · gen-pin · gen-sitemap
 ├── .claude/commands/     Claude Code 用スラッシュコマンド（/upload-r2, /delete-originals）
 ├── originals/            作業用フルサイズ画像（git 除外・アップロード後は削除可）
 ├── sitemap.xml  robots.txt
@@ -161,11 +165,19 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
    ヒント: 先に add-wallpaper を実行してもよい。その場合 upload-r2 が
    見つけた作品に実URLを埋め込む。どちらの順でも動く。
 
-5. （任意）sitemap を再生成:
-      node gen-sitemap.js --base https://your-domain.com
+5. 作品ページ（静的HTML）と sitemap を生成 ← 必須:
+      npm run publish
+   → <page>.html をリポジトリ直下に出力し、sitemap.xml を更新
+     （個別に叩くなら node gen-pages.js --prune / node gen-sitemap.js）
 
-6. コミット & push:
-      git add data/wallpapers.json thumbs/<slug>.webp mockups/<slug> sitemap.xml
+6. （任意）Pinterest 用の縦ピン画像を生成:
+      node gen-pin.js --slug <slug>
+   → pins/<slug>/{01-artwork,02-phone,03-text}.jpg（1000×1500）
+     git 管理外。Pinterest に手動アップロードする用
+
+7. コミット & push:
+      git add data/wallpapers.json thumbs/<slug>.webp mockups/<slug> \
+              <page>.html data/generated-pages.json sitemap.xml
       git commit -m "Add <slug>"
       git push
 ```
@@ -182,13 +194,16 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 | `gen-mockups`     | `originals/<slug>/mockup-<device>.png` → `mockups/<slug>/<device>.webp` を出力し、`wallpapers.json` の `mockups` に登録。device = ultrawide / macbook / ipad / iphone。 |
 | `add-wallpaper`   | 検証済みブロックを `wallpapers.json` に1件追記（slug 自動生成／JSON構文・必須項目・thumb 存在・slug 重複を検証）。フラグまたは対話。 |
 | `upload-r2`       | `pc`/`sp`/`uw`（`.png`/`.jpg`/`.webp` 可、非JPEGは**JPEGに変換**）を R2 にアップロード（S3互換・`@aws-sdk/client-s3`）し、`pcUrl`/`spUrl`/`uwUrl` を JSON に書き戻す。認証情報は `.env` からのみ。 |
-| `gen-sitemap`     | （おまけ）JSON から `sitemap.xml` を再生成（`--base` 省略時は現行の公開URL）。 |
+| `gen-pages`       | 作品ごとの**静的HTML**（`<page>.html`）をリポジトリ直下に生成。title / description / canonical / OGP / Twitter Card / JSON-LD を**静的に**埋め込む。決めたファイル名は各作品の `page` として JSON に書き戻す。`--prune` で削除済み作品のページも消す。 |
+| `gen-pin`         | Pinterest 用の 2:3（1000×1500）ピン画像を `pins/<slug>/` に3種生成（`--slug <slug>` / `--all`）。素材は `originals/<slug>/sp.*`、無ければ `spUrl` から取得。git 管理外。 |
+| `gen-sitemap`     | JSON から `sitemap.xml` を再生成（`--base` 省略時は現行の公開URL）。作品URLは `page` を使う。 |
 
 `wallpapers.json` のスキーマ（1作品あたり）：
 
 ```json
 {
   "slug": "…", "title": "…",
+  "page": "<slug から連番を外した名前>.html",
   "date": "2026-07-22",
   "artist": "…", "era": "…", "museum": "…",
   "thumb": "thumbs/<slug>.webp",
@@ -205,6 +220,7 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 ```
 
 （必須は `slug` / `title` と3点ダウンロードセット `pcUrl`/`spUrl`/`uwUrl`。
+`page` は手で書かず、`gen-pages` が書き込みます。
 `artist`/`era`/`museum` は任意で、無い作品は作品ページで該当行を表示しません。
 `mockups` も任意（`gen-mockups` が生成・登録）。一覧/詳細のデバイス切替に使われ、
 無ければ切替ボタンは出ません。

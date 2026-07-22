@@ -101,6 +101,16 @@
     el.setAttribute("content", content);
   }
 
+  function upsertCanonical(href) {
+    let el = document.head.querySelector('link[rel="canonical"]');
+    if (!el) {
+      el = document.createElement("link");
+      el.setAttribute("rel", "canonical");
+      document.head.appendChild(el);
+    }
+    el.setAttribute("href", href);
+  }
+
   // Pinterest domain-ownership verification — a permanent tag emitted on every
   // page (including those without setMeta, e.g. 404), sourced from the constant.
   if (C.PINTEREST_DOMAIN_VERIFY) {
@@ -126,6 +136,7 @@
 
     document.title = title;
     upsertMeta("name", "description", desc);
+    upsertCanonical(url);
 
     upsertMeta("property", "og:site_name", C.BRAND_NAME);
     upsertMeta("property", "og:title", title);

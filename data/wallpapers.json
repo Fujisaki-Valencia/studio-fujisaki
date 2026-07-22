@@ -16,7 +16,8 @@
         "macbook": "mockups/01_hokusai-kumonokakehashi/macbook.webp",
         "ipad": "mockups/01_hokusai-kumonokakehashi/ipad.webp",
         "iphone": "mockups/01_hokusai-kumonokakehashi/iphone.webp"
-      }
+      },
+      "page": "hokusai-kumonokakehashi.html"
     },
     {
       "slug": "02_keisen-fishandplants",
@@ -34,12 +35,14 @@
         "macbook": "mockups/02_keisen-fishandplants/macbook.webp",
         "ipad": "mockups/02_keisen-fishandplants/ipad.webp",
         "iphone": "mockups/02_keisen-fishandplants/iphone.webp"
-      }
+      },
+      "page": "keisen-fishandplants.html"
     },
     {
       "slug": "03_kiitsu-flowersofallseasons",
       "title": "Flowers of All Seasons",
       "date": "2026-07-22",
+      "artist": "Suzuki Kiitsu",
       "era": "Edo period, mid-17th century",
       "museum": "The Art Institute of Chicago",
       "thumb": "thumbs/03_kiitsu-flowersofallseasons.webp",
@@ -51,7 +54,8 @@
         "macbook": "mockups/03_kiitsu-flowersofallseasons/macbook.webp",
         "ipad": "mockups/03_kiitsu-flowersofallseasons/ipad.webp",
         "iphone": "mockups/03_kiitsu-flowersofallseasons/iphone.webp"
-      }
+      },
+      "page": "kiitsu-flowersofallseasons.html"
     },
     {
       "slug": "04_hokusai-gaifukaisei",
@@ -69,7 +73,8 @@
         "macbook": "mockups/04_hokusai-gaifukaisei/macbook.webp",
         "ipad": "mockups/04_hokusai-gaifukaisei/ipad.webp",
         "iphone": "mockups/04_hokusai-gaifukaisei/iphone.webp"
-      }
+      },
+      "page": "hokusai-gaifukaisei.html"
     }
   ]
 }
