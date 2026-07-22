@@ -6,6 +6,37 @@
   const host = document.querySelector("[data-detail]");
   if (!host) return;
 
+  /* Lightbox: enlarged preview overlay (created once, reused). */
+  function openLightbox(src, alt) {
+    let box = document.querySelector("[data-lightbox]");
+    if (!box) {
+      box = document.createElement("div");
+      box.className = "lightbox";
+      box.setAttribute("data-lightbox", "");
+      box.innerHTML =
+        '<button class="lightbox__close" type="button" aria-label="Close">×</button>' +
+        '<img class="lightbox__img" alt="">' +
+        '<p class="lightbox__hint">Click outside or press Esc to close</p>';
+      document.body.appendChild(box);
+      const close = function () {
+        box.classList.remove("is-open");
+        document.body.style.overflow = "";
+      };
+      box.addEventListener("click", function (e) {
+        if (e.target === box || e.target.classList.contains("lightbox__close")) close();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") close();
+      });
+    }
+    const img = box.querySelector(".lightbox__img");
+    img.src = src;
+    img.alt = alt || "";
+    box.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    box.querySelector(".lightbox__close").focus();
+  }
+
   SF.loadWallpapers()
     .then((items) => {
       const w = items.find((x) => x.slug === slug);
@@ -92,14 +123,26 @@
           </div>
         </div>`;
 
+      const preview = host.querySelector("[data-preview]");
+
       // Wire the preview toolbar (present only when the wallpaper has mockups).
       const bar = host.querySelector(".device-bar");
-      if (bar) {
-        const preview = host.querySelector("[data-preview]");
+      if (bar && preview) {
         const img = preview.querySelector("img");
         SF.wireDeviceBar(bar, (device) => {
           img.src = device === "artwork" ? img.dataset.thumb : mk[device] || img.dataset.thumb;
           preview.classList.toggle("is-mockup", device !== "artwork");
+        });
+      }
+
+      // Click the preview to view it enlarged. Artwork mode opens the full-size
+      // wallpaper (R2); a device mockup opens that mockup image.
+      if (preview) {
+        preview.addEventListener("click", function () {
+          const src = preview.classList.contains("is-mockup")
+            ? preview.querySelector("img").getAttribute("src")
+            : w.pcUrl;
+          openLightbox(src, w.title);
         });
       }
     })
