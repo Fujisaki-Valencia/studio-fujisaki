@@ -24,4 +24,9 @@ window.CONFIG = {
   DEFAULT_OG_IMAGE: "mockups/01_hokusai-kumonokakehashi/macbook.webp",
   DEFAULT_OG_IMAGE_WIDTH: 900,
   DEFAULT_OG_IMAGE_HEIGHT: 675,
+
+  // --- Pinterest ドメイン所有権確認 ---
+  // 全ページの <head> に <meta name="p:domain_verify"> として出力される恒久タグ。
+  // 確認完了後も削除しない（Rich Pins 等の信頼性に寄与）。
+  PINTEREST_DOMAIN_VERIFY: "99f896f8781fa3d2088ea03de70da13a",
 };

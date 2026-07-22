@@ -101,6 +101,12 @@
     el.setAttribute("content", content);
   }
 
+  // Pinterest domain-ownership verification — a permanent tag emitted on every
+  // page (including those without setMeta, e.g. 404), sourced from the constant.
+  if (C.PINTEREST_DOMAIN_VERIFY) {
+    upsertMeta("name", "p:domain_verify", C.PINTEREST_DOMAIN_VERIFY);
+  }
+
   /* opts: {title, description, image, imageWidth, imageHeight, type, path} */
   SF.setMeta = function (opts) {
     opts = opts || {};
