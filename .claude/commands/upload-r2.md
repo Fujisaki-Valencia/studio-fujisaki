@@ -1,10 +1,14 @@
 ---
-description: 壁紙の pc/sp/uw をR2にアップロードし、作品ページ・sitemap を再生成して公開まで通す
+description: 既存作品の pc/sp/uw をR2に再アップロードし、作品ページ・sitemap を再生成して公開まで通す
 argument-hint: <slug> [画像フォルダ (省略時 originals/<slug>)]
 allowed-tools: Bash(node scripts/upload-r2.js:*), Bash(node scripts/add-wallpaper.js:*), Bash(node scripts/gen-mockups.js:*), Bash(node scripts/gen-pages.js:*), Bash(node scripts/gen-sitemap.js:*), Bash(ls:*), Bash(test:*), Bash(git status:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read
 ---
 
-指定された壁紙を **R2 へのアップロードから公開まで**通すタスクです。
+**既に `wallpapers.json` に登録済みの**壁紙について、画像を R2 に上げ直して公開まで通すタスクです。
+画像の差し替えや、アップロードだけ失敗した場合のやり直しに使います。
+
+**新規の壁紙は `/new-wallpaper $1` を使うこと。** サムネ生成と JSON 登録が要るため、
+このコマンドだけでは完結しません。
 
 - slug: `$1`
 - 画像フォルダ: `$2`（未指定なら `originals/$1`）
@@ -24,10 +28,8 @@ allowed-tools: Bash(node scripts/upload-r2.js:*), Bash(node scripts/add-wallpape
    ```
    を実行する。認証情報は `.env` から読まれる（コマンドには渡さない）。
 
-   - もし「slug が wallpapers.json に見つからない」旨の警告が出たら、先に作品を追加する必要がある。
-     ユーザーに「`add-wallpaper` で先に作品を追加してから再実行しますか？」と確認し、了承されたら
-     `node scripts/add-wallpaper.js --slug $1 --title "…"`（必要な項目をユーザーに聞く）を実行してから
-     もう一度アップロードする。
+   - もし「slug が wallpapers.json に見つからない」旨の警告が出たら、これは新規の壁紙なので
+     このコマンドの対象外。**`/new-wallpaper $1` を案内して中断すること。**
 
 3. **モックアップの確認**（作品ページの og:image に使われるため、ページ生成より前に）
    - `data/wallpapers.json` の該当作品に `mockups` があるか Read で確認する。
