@@ -13,7 +13,7 @@ window.CONFIG = {
   // JSON の pcUrl/spUrl は upload-r2 スクリプトがこの値を元に絶対URLで書き込みます。
   R2_BASE_URL: "https://pub-d55846f181c2469888431e86756175c8.r2.dev",
   // Ko-fi 投げ銭
-  KOFI_URL: "https://ko-fi.com/REPLACE-ME",
+  KOFI_URL: "https://ko-fi.com/studiofujisaki",
 
   // --- 公開サイトのURL（OGP・sitemap 用の絶対URL生成に使用） ---
   // 独自ドメイン移行後はここを差し替える。末尾スラッシュなし。
