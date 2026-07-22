@@ -77,10 +77,10 @@ npm install
 | `R2_BASE_URL`           | R2 バケットの公開ベースURL（`.env` の `R2_PUBLIC_BASE_URL` と一致） | 設定済み（r2.dev） |
 | `SITE_URL`              | 公開サイトのURL（OGP / sitemap の絶対URL生成に使用）                | `https://fujisaki-valencia.github.io/studio-fujisaki` |
 | `DEFAULT_OG_IMAGE`      | 作品ページ以外の既定OGP画像（相対パス）＋その `_WIDTH`/`_HEIGHT`    | 01 の MacBook モック |
-| `KOFI_URL`              | Ko-fi ページ（ユーザー名を抽出してフローティング Tip ウィジェットに使用）  | 設定済み（studiofujisaki） |
+| `KOFI_URL`              | Ko-fi ページ（フッターと各作品ページの Ko-fi ボタンのリンク先）             | 設定済み（studiofujisaki） |
 
-- `config.js` のプレースホルダはすべて解消済みです。Ko-fi は**フローティング Tip ウィジェット**
-  （Ko-fi 公式 overlay-widget）で全ページに常時表示され、`KOFI_URL` のユーザー名を使います。
+- `config.js` のプレースホルダはすべて解消済みです。Ko-fi ボタンはフッターと各作品ページに置かれ、
+  クリックで Ko-fi ページを新規タブで開きます。
 - `SITE_URL` は GitHub Pages のURLに設定済みで、**`sitemap.xml` / `robots.txt` も同じホスト**に反映済みです。
   独自ドメインへ移す場合のみ差し替えます（下記「独自ドメインへの移行」）。
 
