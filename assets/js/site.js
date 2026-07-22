@@ -140,6 +140,17 @@
   };
 
   /* ---------- header / footer ---------- */
+  /* ---------- Ko-fi button ---------- */
+  // Line-style coffee icon to match the site's minimal iconography (no emoji).
+  const KOFI_ICON =
+    '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z"/><path d="M17 9h2.4a2.5 2.5 0 0 1 0 5H17"/><path d="M7.5 3.2c0 1-1 1.4-1 2.4M11 3.2c0 1-1 1.4-1 2.4"/></svg>';
+  SF.kofiButton = function () {
+    return (
+      `<a class="btn btn--kofi" href="${SF.escape(C.KOFI_URL)}" ` +
+      `target="_blank" rel="noopener">${KOFI_ICON}<span>Support on Ko-fi</span></a>`
+    );
+  };
+
   const NAV = [
     { href: "index.html", label: "Home", page: "home" },
     { href: "about.html", label: "About", page: "about" },
@@ -176,8 +187,7 @@
             <h4>${SF.escape(C.BRAND_NAME)}</h4>
             <p>${SF.escape(C.TAGLINE)}</p>
             <p style="margin-top:1rem">
-              <a class="btn btn--kofi" href="${SF.escape(C.KOFI_URL)}"
-                 target="_blank" rel="noopener">☕ Support on Ko-fi</a>
+              ${SF.kofiButton()}
             </p>
           </div>
           <div>

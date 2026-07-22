@@ -126,10 +126,12 @@ h3 { font-size: 1.15rem; }
   transition: background .2s ease, color .2s ease;
 }
 .btn:hover { background: var(--accent-ink); color: var(--surface); }
+.btn svg { display: block; flex-shrink: 0; }
 .btn--solid { background: var(--accent-ink); color: var(--surface); }
 .btn--solid:hover { background: var(--text); color: var(--surface); }
-.btn--kofi { border-color: var(--accent); color: var(--accent); }
-.btn--kofi:hover { background: var(--accent); color: var(--surface); }
+/* Ko-fi: crisp outline matching the site's secondary buttons (icon, no emoji). */
+.btn--kofi { border-color: var(--accent-ink); color: var(--accent-ink); }
+.btn--kofi:hover { background: var(--accent-ink); color: var(--surface); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 0.8rem; }
 
 /* ------- collection intro cards (home) ------- */
@@ -246,9 +248,10 @@ h3 { font-size: 1.15rem; }
 }
 .site-footer h4 { font-family: var(--serif); font-weight: 400; margin: 0 0 0.8rem;
   font-size: 1rem; }
-.site-footer a { display: block; color: var(--text-muted); font-size: 0.88rem;
+/* Plain footer links only — don't clobber the Ko-fi .btn styling. */
+.site-footer a:not(.btn) { display: block; color: var(--text-muted); font-size: 0.88rem;
   padding: 0.15rem 0; }
-.site-footer a:hover { color: var(--text); }
+.site-footer a:not(.btn):hover { color: var(--text); }
 .site-footer .brand-block p { color: var(--text-muted); font-size: 0.88rem;
   max-width: 34ch; }
 .footer-bottom { border-top: 1px solid var(--line); margin-top: 2rem;
