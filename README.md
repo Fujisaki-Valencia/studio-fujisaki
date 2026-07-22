@@ -151,29 +151,26 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
    → mockups/<slug>/<device>.webp を出力し、wallpapers.json に mockups を登録
    （一覧・詳細のデバイス切替ボタンで表示。モックが無い作品はボタン非表示）
 
-3. フルサイズ画像を R2 にアップロード（認証情報は .env から読込）:
-      node upload-r2.js --slug <slug> --dir ../originals/<slug>
-   → pc/sp/uw をアップロード（PNG等はJPEGに変換して .jpg で保存）し、
-     pcUrl/spUrl/uwUrl を wallpapers.json に反映
-
-4. メタデータのブロックを追記（slug 自動生成、JSON・必須項目・thumb 存在を検証）:
+3. メタデータのブロックを追記（slug 自動生成、JSON・必須項目・thumb 存在を検証）:
       node add-wallpaper.js --title "…" [--artist "…"] [--era "…"] [--museum "…"]
    （必須は --title のみ。artist / era / museum は任意。
      フラグ無しで実行すると対話モード）
 
-   ヒント: 先に add-wallpaper を実行してもよい。その場合 upload-r2 が
-   見つけた作品に実URLを埋め込む。どちらの順でも動く。
+4. アップロードから公開まで（Claude Code なら /upload-r2 <slug> が 4 を丸ごと担当）:
+      node upload-r2.js --slug <slug> --dir ../originals/<slug>
+   → pc/sp/uw をアップロード（PNG等はJPEGに変換して .jpg で保存）し、
+     pcUrl/spUrl/uwUrl を wallpapers.json に反映
 
-5. 作品ページ（静的HTML）と sitemap を生成 ← 必須:
-      npm run publish
+      npm run publish          ← 必須。飛ばすと新作がサイトに出ない
    → <page>.html をリポジトリ直下に出力し、sitemap.xml を更新
      （個別に叩くなら node gen-pages.js --prune / node gen-sitemap.js）
 
-6. コミット & push:
-      git add data/wallpapers.json thumbs/<slug>.webp mockups/<slug> \
-              <page>.html data/generated-pages.json sitemap.xml
+      git add -A
       git commit -m "Add <slug>"
       git push
+
+   ヒント: add-wallpaper と upload-r2 はどちらが先でも動く。後から実行した方が
+   足りない項目を埋める。
 ```
 
 > slug 命名について：`add-wallpaper`/`gen-thumb` は slug をハイフン区切りに正規化します
@@ -233,7 +230,7 @@ cp .env.example .env      # .env は git 除外済み。そのまま除外を維
 
 | コマンド            | 役割                                                                      |
 |---------------------|---------------------------------------------------------------------------|
-| `/upload-r2 <slug>` | 前提（`.env`・画像の存在）を確認し `upload-r2` を実行、URL反映まで案内。未登録なら `add-wallpaper` を促す。 |
+| `/upload-r2 <slug>` | 前提（`.env`・画像の存在）を確認 → R2 アップロード → モックアップ確認 → **作品ページと sitemap を再生成** → 確認のうえ commit/push。未登録なら `add-wallpaper` を促す。 |
 | `/delete-originals [slug]` | `originals/` 配下（またはslug指定分）の作業用画像を削除して容量を戻す。対象は `originals/` 限定。 |
 
 > 新規コマンドは `/` メニューに出すのにセッション再読み込みが必要な場合があります。
