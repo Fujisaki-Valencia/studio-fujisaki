@@ -13,64 +13,14 @@
     return (w.mockups && w.mockups[device]) || w.thumb;
   }
 
-  /* Lightbox: enlarged preview overlay with its own device toggle.
-     Created once, reused; the toolbar is rebuilt per open. */
-  function openLightbox(w, initialDevice, mockupKeys) {
-    let box = document.querySelector("[data-lightbox]");
-    if (!box) {
-      box = document.createElement("div");
-      box.className = "lightbox";
-      box.setAttribute("data-lightbox", "");
-      box.innerHTML =
-        '<button class="lightbox__close" type="button" aria-label="Close">×</button>' +
-        '<div class="lightbox__stage"><img class="lightbox__img" alt=""></div>' +
-        '<div class="lightbox__bar" data-lightbox-bar></div>';
-      document.body.appendChild(box);
-      const close = function () {
-        box.classList.remove("is-open");
-        document.body.style.overflow = "";
-      };
-      box.addEventListener("click", function (e) {
-        // Close on backdrop / empty stage / the × button — not on image or toolbar.
-        if (
-          e.target === box ||
-          e.target.classList.contains("lightbox__stage") ||
-          e.target.classList.contains("lightbox__close")
-        )
-          close();
-      });
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") close();
-      });
-    }
-
-    const img = box.querySelector(".lightbox__img");
-    const barHost = box.querySelector("[data-lightbox-bar]");
-    const show = function (device) {
-      img.src = enlargedSrc(w, device);
-      img.alt = w.title;
-    };
-    show(initialDevice);
-
-    // Device toggle inside the lightbox (only when the work has mockups).
-    if (mockupKeys && mockupKeys.length) {
-      barHost.hidden = false;
-      barHost.innerHTML = SF.deviceBar(mockupKeys);
-      const bar = barHost.querySelector(".device-bar");
-      bar.querySelectorAll(".device-btn").forEach(function (b) {
-        const on = b.getAttribute("data-device") === initialDevice;
-        b.classList.toggle("is-active", on);
-        b.setAttribute("aria-pressed", String(on));
-      });
-      SF.wireDeviceBar(bar, show);
-    } else {
-      barHost.hidden = true;
-      barHost.innerHTML = "";
-    }
-
-    box.classList.add("is-open");
-    document.body.style.overflow = "hidden";
-    box.querySelector(".lightbox__close").focus();
+  // Set the active state on a device toolbar (used to sync two bars).
+  function setBarActive(bar, device) {
+    if (!bar) return;
+    bar.querySelectorAll(".device-btn").forEach(function (b) {
+      const on = b.getAttribute("data-device") === device;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-pressed", String(on));
+    });
   }
 
   SF.loadWallpapers()
@@ -160,26 +110,86 @@
         </div>`;
 
       const preview = host.querySelector("[data-preview]");
-      let currentDevice = "artwork"; // tracks the on-page preview mode
+      const previewImg = preview ? preview.querySelector("img") : null;
+      const detailBar = host.querySelector(".device-bar");
+      let currentDevice = "artwork";
+      let lb = null; // { img, bar } while the lightbox is open
 
-      // Wire the preview toolbar (present only when the wallpaper has mockups).
-      const bar = host.querySelector(".device-bar");
-      if (bar && preview) {
-        const img = preview.querySelector("img");
-        SF.wireDeviceBar(bar, (device) => {
-          currentDevice = device;
-          img.src = device === "artwork" ? img.dataset.thumb : mk[device] || img.dataset.thumb;
+      // Single source of truth: apply a device to the on-page preview AND the
+      // lightbox (if open), keeping both toolbars' active states in sync.
+      function applyDevice(device) {
+        currentDevice = device;
+        if (previewImg) {
+          previewImg.src =
+            device === "artwork" ? previewImg.dataset.thumb : mk[device] || previewImg.dataset.thumb;
           preview.classList.toggle("is-mockup", device !== "artwork");
-        });
+        }
+        setBarActive(detailBar, device);
+        if (lb) {
+          lb.img.src = enlargedSrc(w, device);
+          lb.img.alt = w.title;
+          setBarActive(lb.bar, device);
+        }
       }
 
-      // Click the preview to view it enlarged. The lightbox opens in the current
-      // mode and carries its own device toggle.
-      if (preview) {
-        preview.addEventListener("click", function () {
-          openLightbox(w, currentDevice, mockupKeys);
-        });
+      if (detailBar) SF.wireDeviceBar(detailBar, applyDevice);
+
+      // Click the preview to view it enlarged. The lightbox shares applyDevice,
+      // so switching device in either place updates both.
+      function openLightbox() {
+        let box = document.querySelector("[data-lightbox]");
+        if (!box) {
+          box = document.createElement("div");
+          box.className = "lightbox";
+          box.setAttribute("data-lightbox", "");
+          box.innerHTML =
+            '<button class="lightbox__close" type="button" aria-label="Close">×</button>' +
+            '<div class="lightbox__stage"><img class="lightbox__img" alt=""></div>' +
+            '<div class="lightbox__bar" data-lightbox-bar></div>';
+          document.body.appendChild(box);
+          const close = function () {
+            box.classList.remove("is-open");
+            document.body.style.overflow = "";
+            lb = null;
+          };
+          box.addEventListener("click", function (e) {
+            // Close on backdrop / empty stage / the × button — not image or toolbar.
+            if (
+              e.target === box ||
+              e.target.classList.contains("lightbox__stage") ||
+              e.target.classList.contains("lightbox__close")
+            )
+              close();
+          });
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") close();
+          });
+        }
+
+        const img = box.querySelector(".lightbox__img");
+        const barHost = box.querySelector("[data-lightbox-bar]");
+        img.src = enlargedSrc(w, currentDevice);
+        img.alt = w.title;
+
+        let bar = null;
+        if (mockupKeys.length) {
+          barHost.hidden = false;
+          barHost.innerHTML = SF.deviceBar(mockupKeys);
+          bar = barHost.querySelector(".device-bar");
+          setBarActive(bar, currentDevice);
+          SF.wireDeviceBar(bar, applyDevice);
+        } else {
+          barHost.hidden = true;
+          barHost.innerHTML = "";
+        }
+
+        lb = { img: img, bar: bar };
+        box.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        box.querySelector(".lightbox__close").focus();
       }
+
+      if (preview) preview.addEventListener("click", openLightbox);
     })
     .catch(() => {
       host.innerHTML = `<div class="empty-state">Could not load this wallpaper.</div>`;
