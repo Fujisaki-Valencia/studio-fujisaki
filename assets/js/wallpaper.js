@@ -103,12 +103,12 @@
             ${metaRows ? `<dl>${metaRows}</dl>` : ""}
 
             <div class="download-block">
-              <a class="btn btn--solid" href="${SF.escape(w.pcUrl)}" download
-                 rel="noopener">↓ Download for PC &amp; Tablet</a>
-              <a class="btn btn--solid" href="${SF.escape(w.spUrl)}" download
-                 rel="noopener">↓ Download for Phone</a>
               <a class="btn btn--solid" href="${SF.escape(w.uwUrl)}" download
-                 rel="noopener">↓ Download for Ultrawide</a>
+                 rel="noopener">${SF.deviceIcon("ultrawide")}<span>Download for Ultrawide</span></a>
+              <a class="btn btn--solid" href="${SF.escape(w.pcUrl)}" download
+                 rel="noopener">${SF.deviceIcon("macbook")}<span>Download for PC &amp; Tablet</span></a>
+              <a class="btn btn--solid" href="${SF.escape(w.spUrl)}" download
+                 rel="noopener">${SF.deviceIcon("iphone")}<span>Download for Phone</span></a>
               ${SF.kofiButton()}
             </div>
 

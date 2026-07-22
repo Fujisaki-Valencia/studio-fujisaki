@@ -50,6 +50,17 @@ function esc(s) {
     .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
+// Same icon set as assets/js/site.js's device-preview toolbar (ICONS), kept in
+// sync by hand: this Node script has no access to that browser-side module.
+const DOWNLOAD_ICONS = {
+  ultrawide:
+    '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6.5" width="20" height="9" rx="1.2"/><path d="M9 19h6M12 15.5V19"/></svg>',
+  macbook:
+    '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="10" rx="1.2"/><path d="M2 18.5h20M9.5 15h5"/></svg>',
+  iphone:
+    '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 19h3"/></svg>',
+};
+
 /* Filename for a wallpaper: slug minus the leading "NN_" / "NN-" ordering prefix. */
 function pageNameFor(slug) {
   return String(slug).replace(/^\d+[_-]/, "") || String(slug);
@@ -115,9 +126,9 @@ function fallbackBody(w) {
           <h1>${esc(w.title)}</h1>
           ${rows ? `<dl>${rows}</dl>` : ""}
           <div class="download-block">
-            <a class="btn btn--solid" href="${esc(w.pcUrl)}" download rel="noopener">↓ Download for PC &amp; Tablet</a>
-            <a class="btn btn--solid" href="${esc(w.spUrl)}" download rel="noopener">↓ Download for Phone</a>
-            <a class="btn btn--solid" href="${esc(w.uwUrl)}" download rel="noopener">↓ Download for Ultrawide</a>
+            <a class="btn btn--solid" href="${esc(w.uwUrl)}" download rel="noopener">${DOWNLOAD_ICONS.ultrawide}<span>Download for Ultrawide</span></a>
+            <a class="btn btn--solid" href="${esc(w.pcUrl)}" download rel="noopener">${DOWNLOAD_ICONS.macbook}<span>Download for PC &amp; Tablet</span></a>
+            <a class="btn btn--solid" href="${esc(w.spUrl)}" download rel="noopener">${DOWNLOAD_ICONS.iphone}<span>Download for Phone</span></a>
           </div>
         </div>
       </div>`;
@@ -142,6 +153,8 @@ function pageHTML(w, C) {
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}">
   <link rel="canonical" href="${esc(absUrl)}">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
   <meta property="og:site_name" content="${esc(C.BRAND_NAME)}">
   <meta property="og:title" content="${esc(title)}">

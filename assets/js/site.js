@@ -36,6 +36,8 @@
     iphone:
       '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 19h3"/></svg>',
   };
+  // Reuse the same device icons outside this module (e.g. download buttons).
+  SF.deviceIcon = function (key) { return ICONS[key] || ""; };
   // Order and labels of the toggle. "artwork" is the default (plain thumbnail).
   SF.DEVICES = [
     { key: "artwork", label: "Artwork" },
@@ -185,8 +187,9 @@
     host.innerHTML = `
       <header class="site-header">
         <div class="container">
-          <a class="brand" href="index.html">${SF.escape(C.BRAND_NAME)}
-            <span>Japandi Wallpapers</span>
+          <a class="brand" href="index.html">
+            <img class="brand-lockup" src="assets/img/logo-lockup.png"
+              alt="${SF.escape(C.BRAND_NAME)} — Japandi Wallpapers" width="500" height="128">
           </a>
           <nav class="nav" aria-label="Primary">${links}</nav>
         </div>
