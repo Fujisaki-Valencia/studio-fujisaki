@@ -42,7 +42,6 @@
       "slug": "03_kiitsu-flowersofallseasons",
       "title": "Flowers of All Seasons",
       "date": "2026-07-22",
-      "artist": "Suzuki Kiitsu",
       "era": "Edo period, mid-17th century",
       "museum": "The Art Institute of Chicago",
       "thumb": "thumbs/03_kiitsu-flowersofallseasons.webp",
@@ -75,6 +74,101 @@
         "iphone": "mockups/04_hokusai-gaifukaisei/iphone.webp"
       },
       "page": "hokusai-gaifukaisei.html"
+    },
+    {
+      "slug": "05_greatwave",
+      "title": "Under the Wave off Kanagawa (The Great Wave)",
+      "date": "2026-07-22",
+      "artist": "Katsushika Hokusai",
+      "era": "Edo period, 1830–33",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/05_greatwave.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/05_greatwave/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/05_greatwave/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/05_greatwave/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/05_greatwave/ultrawide.webp",
+        "macbook": "mockups/05_greatwave/macbook.webp",
+        "ipad": "mockups/05_greatwave/ipad.webp",
+        "iphone": "mockups/05_greatwave/iphone.webp"
+      },
+      "page": "greatwave.html"
+    },
+    {
+      "slug": "06_seba",
+      "title": "Seba, Station 32 of the Kisokaidō",
+      "date": "2026-07-22",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, c. 1835–38",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/06_seba.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/06_seba/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/06_seba/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/06_seba/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/06_seba/ultrawide.webp",
+        "macbook": "mockups/06_seba/macbook.webp",
+        "ipad": "mockups/06_seba/ipad.webp",
+        "iphone": "mockups/06_seba/iphone.webp"
+      },
+      "page": "seba.html"
+    },
+    {
+      "slug": "07_inokashira",
+      "title": "Snow at Benzaiten Shrine in Inokashira Pond",
+      "date": "2026-07-22",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, c. 1844–45",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/07_inokashira.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/07_inokashira/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/07_inokashira/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/07_inokashira/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/07_inokashira/ultrawide.webp",
+        "macbook": "mockups/07_inokashira/macbook.webp",
+        "ipad": "mockups/07_inokashira/ipad.webp",
+        "iphone": "mockups/07_inokashira/iphone.webp"
+      },
+      "page": "inokashira.html"
+    },
+    {
+      "slug": "08_shirasuka",
+      "title": "Shirasuka: Shiomi Slope",
+      "date": "2026-07-22",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, 1847–52",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/08_shirasuka.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/08_shirasuka/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/08_shirasuka/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/08_shirasuka/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/08_shirasuka/ultrawide.webp",
+        "macbook": "mockups/08_shirasuka/macbook.webp",
+        "ipad": "mockups/08_shirasuka/ipad.webp",
+        "iphone": "mockups/08_shirasuka/iphone.webp"
+      },
+      "page": "shirasuka.html"
+    },
+    {
+      "slug": "09_hodogaya",
+      "title": "Hodogaya: Katabira River and Katabira Bridge",
+      "date": "2026-07-22",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, c. 1847–52",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/09_hodogaya.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/09_hodogaya/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/09_hodogaya/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/09_hodogaya/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/09_hodogaya/ultrawide.webp",
+        "macbook": "mockups/09_hodogaya/macbook.webp",
+        "ipad": "mockups/09_hodogaya/ipad.webp",
+        "iphone": "mockups/09_hodogaya/iphone.webp"
+      },
+      "page": "hodogaya.html"
     }
   ]
 }

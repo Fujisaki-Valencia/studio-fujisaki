@@ -50,6 +50,18 @@ function slugify(s) {
     .replace(/-+/g, "-");
 }
 
+/* An explicit --slug is used verbatim: it has to match the R2 key and the
+   mockups/ folder, and slugify would rewrite the "NN_" ordering prefix this
+   catalogue uses into "NN-". Only reject characters unsafe in a path or URL. */
+function explicitSlug(s) {
+  const slug = String(s).trim();
+  if (!/^[A-Za-z0-9._-]+$/.test(slug)) {
+    console.error(`Invalid --slug "${slug}": use only letters, digits, . _ -`);
+    process.exit(1);
+  }
+  return slug;
+}
+
 function parseFlags(argv) {
   const out = {};
   for (let i = 0; i < argv.length; i++) {
@@ -134,7 +146,7 @@ async function main() {
 
   const input = hasFlags ? seed : await collectInteractive(seed);
 
-  const slug = flags.slug ? slugify(flags.slug) : slugify(input.title || "");
+  const slug = flags.slug ? explicitSlug(flags.slug) : slugify(input.title || "");
   const R2 = process.env.R2_PUBLIC_BASE_URL || "https://REPLACE-ME.r2.example.com";
 
   const entry = { slug, title: input.title };

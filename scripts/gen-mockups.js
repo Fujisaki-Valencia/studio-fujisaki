@@ -3,8 +3,10 @@
  * gen-mockups — build lightweight WebP device mockups for one wallpaper and
  * register them in data/wallpapers.json.
  *
- * Input : <dir>/mockup-<device>.(png|jpg|webp)  for any of:
+ * Input : <dir>/mockup-<name>.(png|jpg|webp)  for any of:
  *           ultrawide, macbook, ipad, iphone
+ *         The export tool names these uw / notepc / tablet / sp, so those are
+ *         accepted as aliases for the same four devices.
  * Output: mockups/<slug>/<device>.webp   (committed to the repo, like thumbs)
  *         + sets the entry's `mockups` map in wallpapers.json (devices found only)
  *
@@ -20,6 +22,14 @@ const REPO = path.resolve(__dirname, "..");
 const JSON_PATH = path.join(REPO, "data", "wallpapers.json");
 const DEVICES = ["ultrawide", "macbook", "ipad", "iphone"];
 const SRC_EXTS = [".png", ".jpg", ".jpeg", ".webp"];
+// Filename stems accepted for each device, in priority order. The site's own
+// vocabulary comes first; the rest are what the export tool actually writes.
+const ALIASES = {
+  ultrawide: ["ultrawide", "uw"],
+  macbook: ["macbook", "notepc"],
+  ipad: ["ipad", "tablet"],
+  iphone: ["iphone", "sp"],
+};
 
 function parseFlags(argv) {
   const out = {};
@@ -56,9 +66,9 @@ async function main() {
 
   const mockups = {};
   for (const dev of DEVICES) {
-    const src = SRC_EXTS.map((e) => path.join(REPO, dir, `mockup-${dev}${e}`)).find((p) =>
-      fs.existsSync(p)
-    );
+    const src = ALIASES[dev]
+      .flatMap((name) => SRC_EXTS.map((e) => path.join(REPO, dir, `mockup-${name}${e}`)))
+      .find((p) => fs.existsSync(p));
     if (!src) continue;
     const rel = `mockups/${slug}/${dev}.webp`;
     await sharp(src)
@@ -70,7 +80,8 @@ async function main() {
   }
 
   if (!Object.keys(mockups).length) {
-    console.error(`No mockup-*.png found in ${dir} (looked for ${DEVICES.join(", ")}).`);
+    const looked = DEVICES.flatMap((d) => ALIASES[d]).join(", ");
+    console.error(`No mockup-* image found in ${dir} (looked for: ${looked}).`);
     process.exit(1);
   }
 

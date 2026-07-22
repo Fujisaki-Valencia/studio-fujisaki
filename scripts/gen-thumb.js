@@ -49,8 +49,15 @@ async function main() {
     process.exit(1);
   }
 
-  const rawSlug = process.argv[3] || path.parse(input).name;
-  const slug = slugify(rawSlug);
+  // An explicitly passed slug is used verbatim so the thumb filename matches the
+  // JSON slug and the R2 key (which carry an "NN_" prefix slugify would rewrite).
+  // Only a slug derived from the input filename gets normalised.
+  const explicit = process.argv[3];
+  if (explicit && !/^[A-Za-z0-9._-]+$/.test(explicit)) {
+    console.error(`Invalid slug "${explicit}": use only letters, digits, . _ -`);
+    process.exit(1);
+  }
+  const slug = explicit || slugify(path.parse(input).name);
 
   const thumbsDir = path.resolve(__dirname, "..", "thumbs");
   fs.mkdirSync(thumbsDir, { recursive: true });
