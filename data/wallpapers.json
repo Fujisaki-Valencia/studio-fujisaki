@@ -169,6 +169,63 @@
         "iphone": "mockups/09_hodogaya/iphone.webp"
       },
       "page": "hodogaya.html"
+    },
+    {
+      "slug": "10_snowatakabane",
+      "title": "Snow at Akabane Bridge in Shiba",
+      "date": "2026-07-23T04:02:07.862Z",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, c. 1843–47",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/10_snowatakabane.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/10_snowatakabane/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/10_snowatakabane/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/10_snowatakabane/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/10_snowatakabane/ultrawide.webp",
+        "macbook": "mockups/10_snowatakabane/macbook.webp",
+        "ipad": "mockups/10_snowatakabane/ipad.webp",
+        "iphone": "mockups/10_snowatakabane/iphone.webp"
+      },
+      "page": "snowatakabane.html"
+    },
+    {
+      "slug": "11_mieji",
+      "title": "Mieji, Station 56 of the Kisokaidō",
+      "date": "2026-07-23T04:02:07.921Z",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, c. 1835–38",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/11_mieji.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/11_mieji/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/11_mieji/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/11_mieji/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/11_mieji/ultrawide.webp",
+        "macbook": "mockups/11_mieji/macbook.webp",
+        "ipad": "mockups/11_mieji/ipad.webp",
+        "iphone": "mockups/11_mieji/iphone.webp"
+      },
+      "page": "mieji.html"
+    },
+    {
+      "slug": "12_dalliance",
+      "title": "Dalliance",
+      "date": "2026-07-23T04:02:07.987Z",
+      "artist": "Attributed to Sugimura Jihei",
+      "era": "Edo period, c. 1685",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/12_dalliance.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/12_dalliance/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/12_dalliance/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/12_dalliance/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/12_dalliance/ultrawide.webp",
+        "macbook": "mockups/12_dalliance/macbook.webp",
+        "ipad": "mockups/12_dalliance/ipad.webp",
+        "iphone": "mockups/12_dalliance/iphone.webp"
+      },
+      "page": "dalliance.html"
     }
   ]
 }
