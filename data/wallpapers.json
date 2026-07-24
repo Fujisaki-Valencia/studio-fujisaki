@@ -226,6 +226,177 @@
         "iphone": "mockups/12_dalliance/iphone.webp"
       },
       "page": "dalliance.html"
+    },
+    {
+      "slug": "13_chiryu",
+      "title": "Chiryū",
+      "date": "2026-07-23T23:58:36.562Z",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, c. 1841–42",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/13_chiryu.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/13_chiryu/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/13_chiryu/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/13_chiryu/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/13_chiryu/ultrawide.webp",
+        "macbook": "mockups/13_chiryu/macbook.webp",
+        "ipad": "mockups/13_chiryu/ipad.webp",
+        "iphone": "mockups/13_chiryu/iphone.webp"
+      },
+      "page": "chiryu.html"
+    },
+    {
+      "slug": "14_kanbara",
+      "title": "Kanbara",
+      "date": "2026-07-23T23:58:36.630Z",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, c. 1841–42",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/14_kanbara.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/14_kanbara/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/14_kanbara/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/14_kanbara/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/14_kanbara/ultrawide.webp",
+        "macbook": "mockups/14_kanbara/macbook.webp",
+        "ipad": "mockups/14_kanbara/ipad.webp",
+        "iphone": "mockups/14_kanbara/iphone.webp"
+      },
+      "page": "kanbara.html"
+    },
+    {
+      "slug": "15_chrysanthemum",
+      "title": "Chrysanthemum and Horsefly",
+      "date": "2026-07-23T23:58:36.691Z",
+      "artist": "Katsushika Hokusai",
+      "era": "Edo period, c. 1833–34",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/15_chrysanthemum.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/15_chrysanthemum/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/15_chrysanthemum/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/15_chrysanthemum/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/15_chrysanthemum/ultrawide.webp",
+        "macbook": "mockups/15_chrysanthemum/macbook.webp",
+        "ipad": "mockups/15_chrysanthemum/ipad.webp",
+        "iphone": "mockups/15_chrysanthemum/iphone.webp"
+      },
+      "page": "chrysanthemum.html"
+    },
+    {
+      "slug": "16_nagakubo",
+      "title": "Nagakubo, Station 28 of the Kisokaidō",
+      "date": "2026-07-23T23:58:36.755Z",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, c. 1835–38",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/16_nagakubo.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/16_nagakubo/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/16_nagakubo/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/16_nagakubo/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/16_nagakubo/ultrawide.webp",
+        "macbook": "mockups/16_nagakubo/macbook.webp",
+        "ipad": "mockups/16_nagakubo/ipad.webp",
+        "iphone": "mockups/16_nagakubo/iphone.webp"
+      },
+      "page": "nagakubo.html"
+    },
+    {
+      "slug": "17_togetsu",
+      "title": "Togetsu Bridge at Arashiyama in Yamashiro Province",
+      "date": "2026-07-23T23:58:36.815Z",
+      "artist": "Katsushika Hokusai",
+      "era": "Edo period, c. 1834",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/17_togetsu.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/17_togetsu/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/17_togetsu/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/17_togetsu/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/17_togetsu/ultrawide.webp",
+        "macbook": "mockups/17_togetsu/macbook.webp",
+        "ipad": "mockups/17_togetsu/ipad.webp",
+        "iphone": "mockups/17_togetsu/iphone.webp"
+      },
+      "page": "togetsu.html"
+    },
+    {
+      "slug": "18_whaling",
+      "title": "Whaling off the Coast of the Gotō Islands",
+      "date": "2026-07-23T23:58:36.881Z",
+      "artist": "Katsushika Hokusai",
+      "era": "Edo period, c. 1832–34",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/18_whaling.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/18_whaling/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/18_whaling/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/18_whaling/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/18_whaling/ultrawide.webp",
+        "macbook": "mockups/18_whaling/macbook.webp",
+        "ipad": "mockups/18_whaling/ipad.webp",
+        "iphone": "mockups/18_whaling/iphone.webp"
+      },
+      "page": "whaling.html"
+    },
+    {
+      "slug": "19_oystercatchers",
+      "title": "Oystercatchers",
+      "date": "2026-07-23T23:58:36.948Z",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/19_oystercatchers.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/19_oystercatchers/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/19_oystercatchers/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/19_oystercatchers/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/19_oystercatchers/ultrawide.webp",
+        "macbook": "mockups/19_oystercatchers/macbook.webp",
+        "ipad": "mockups/19_oystercatchers/ipad.webp",
+        "iphone": "mockups/19_oystercatchers/iphone.webp"
+      },
+      "page": "oystercatchers.html"
+    },
+    {
+      "slug": "20_choshi",
+      "title": "Fishing Boats at Chōshi in Shimōsa",
+      "date": "2026-07-23T23:58:37.013Z",
+      "artist": "Katsushika Hokusai",
+      "era": "Edo period, c. 1832–34",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/20_choshi.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/20_choshi/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/20_choshi/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/20_choshi/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/20_choshi/ultrawide.webp",
+        "macbook": "mockups/20_choshi/macbook.webp",
+        "ipad": "mockups/20_choshi/ipad.webp",
+        "iphone": "mockups/20_choshi/iphone.webp"
+      },
+      "page": "choshi.html"
+    },
+    {
+      "slug": "21_okabe",
+      "title": "Okabe: Mount Utsu",
+      "date": "2026-07-23T23:58:37.075Z",
+      "artist": "Utagawa Hiroshige",
+      "era": "Edo period, c. 1841–42",
+      "museum": "The Art Institute of Chicago",
+      "thumb": "thumbs/21_okabe.webp",
+      "pcUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/21_okabe/pc.jpg",
+      "spUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/21_okabe/sp.jpg",
+      "uwUrl": "https://pub-d55846f181c2469888431e86756175c8.r2.dev/21_okabe/uw.jpg",
+      "mockups": {
+        "ultrawide": "mockups/21_okabe/ultrawide.webp",
+        "macbook": "mockups/21_okabe/macbook.webp",
+        "ipad": "mockups/21_okabe/ipad.webp",
+        "iphone": "mockups/21_okabe/iphone.webp"
+      },
+      "page": "okabe.html"
     }
   ]
 }
